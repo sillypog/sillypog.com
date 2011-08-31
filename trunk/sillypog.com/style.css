@@ -5,8 +5,8 @@ body{
 	/* Can't do radial gradients in IE */
 	background: #a2d2ed;
 	
-	background:-moz-radial-gradient(center, #f4fafe, #a2d2ed) no-repeat #a2d2ed;
-	background:-webkit-gradient(radial, 50% 50%, 0, 50% 50%, 500, from(#f4fafe), to(#a2d2ed)) no-repeat #a2d2ed;
+	background:-moz-radial-gradient(center, #f0f0f0, #cccccc) no-repeat #cccccc;
+	background:-webkit-gradient(radial, 50% 50%, 0, 50% 50%, 500, from(#f0f0f0), to(#cccccc)) no-repeat #cccccc;
 	
 	
 }
@@ -39,6 +39,17 @@ a:active{
 	border-bottom-color:#FFFFFF;
 	border-bottom-style:solid;
 	border-bottom-width:3px;	
+}
+
+/* Technique copied from soulwire.co.uk */
+#header h1 a{
+	background: url("svg/sillypog.svg") no-repeat scroll center center transparent;
+	display: block;
+	text-indent: -999px; /* Text in anchor is only used for search? */
+	height: 100px;
+	width: 450px;
+	position:absolute;
+	top:0px;
 }
 
 #footer{
