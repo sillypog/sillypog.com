@@ -2,13 +2,13 @@ body{
 	height:100%;
 	margin:0px;
 	
-	/* Can't do radial gradients in IE */
-	background: #a2d2ed;
-	
 	background:-moz-radial-gradient(center, #f0f0f0, #cccccc) no-repeat #cccccc;
 	background:-webkit-gradient(radial, 50% 50%, 0, 50% 50%, 500, from(#f0f0f0), to(#cccccc)) no-repeat #cccccc;
-	
-	
+}
+
+.no-cssgradients body {
+	/* Can't do radial gradients in IE and there doesn't seem to be a reliable fallback. */
+	background-image:url('jpg/bgGradient.jpg');
 }
 
 p{
@@ -52,6 +52,11 @@ a:active{
 	top:0px;
 }
 
+/* IE doesn't handle SVG so use modernizr to use a png instead. Other properties are the same. */
+.no-svg #header h1 a{
+	background: url("png/sillypog.png") no-repeat scroll center center transparent;
+}
+
 #footer{
 	width:100%;
 	height:40px;
@@ -85,7 +90,6 @@ a:active{
 	-moz-user-select: none;
 	-o-user-select: none;
 	user-select: none;
-
 }
 
 #footerButtons #email{
@@ -98,6 +102,6 @@ a:active{
 	height:100%;
 	background: #FFFFFF;
 	opacity:0.3;
-	filter:alpha(opacity=30)";
+	filter:alpha(opacity=30)";	/*IE shows as no-opacity in modernizr but this gets round it*/
 }
 
