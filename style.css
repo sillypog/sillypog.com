@@ -125,6 +125,10 @@ section{
 	margin-right:50px;
 }
 
+#about{
+	position:relative;
+}
+
 #about header{
 	background:rgba(153,51,102,0.3);
 	height:460px;
@@ -149,16 +153,16 @@ section{
 	font-size:26px;
 }
 
-#aboutText{
-	/*position:relative;
-	top:-460px;
-	left:400px;*/
-	float:right;
-	width:600;
+#aboutText{	
+	/*float:right;*/
+	
+	position:absolute;
+	left:400px;
+	width:600px;
 }
 
 .lW { float: left; clear: left; height: 26px; }
-.rW { float: right; clear: right; height: 26px; }
+/*.rW { float: right; clear: right; height: 26px; }*/
 
 .paleWhiteBG{
 	width:100%;
