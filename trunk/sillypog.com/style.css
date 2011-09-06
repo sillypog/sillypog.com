@@ -17,16 +17,17 @@ body{
 }
 
 h1,h2{
-	font-weight:100;
-	/*line-height:12px;*/
+	font-size:36px;
+	line-height:15px;
 }
 
 h1{
-	font-size:36px;
+	font-weight:600;
 }
 
 h2{
-	font-size:33px;
+	font-weight:400;
+	letter-spacing:-0.025em;
 }
 
 p{
@@ -47,6 +48,11 @@ a:hover{
 }
 a:active{
 	color:#333333;
+}
+
+section{
+	width:1100px;
+	margin:50 auto;
 }
 
 #header{
@@ -121,16 +127,38 @@ a:active{
 
 #about header{
 	background:rgba(153,51,102,0.3);
-	height:230px;
-	width:230px;	/* Width and height are half the intended values */
+	height:460px;
+	width:460px;	/* Width and height are half the intended values */
 	
-	-moz-border-radius:230px;
-	-webkit-border-radius:230px;
+	-moz-border-radius:460px;
+	-webkit-border-radius:460px;
 
-	padding:115px;
+	/*padding:115px;*/
 	
 	text-align:center;
+	
+	float:left;
 }
+
+#about header h1{
+	padding-top:190px;
+	
+}
+
+#about p{
+	font-size:26px;
+}
+
+#aboutText{
+	/*position:relative;
+	top:-460px;
+	left:400px;*/
+	float:right;
+	width:600;
+}
+
+.lW { float: left; clear: left; height: 26px; }
+.rW { float: right; clear: right; height: 26px; }
 
 .paleWhiteBG{
 	width:100%;
