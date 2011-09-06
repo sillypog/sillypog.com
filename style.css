@@ -4,6 +4,11 @@ body{
 	
 	background:-moz-radial-gradient(center, #f0f0f0, #cccccc) no-repeat #cccccc;
 	background:-webkit-gradient(radial, 50% 50%, 0, 50% 50%, 500, from(#f0f0f0), to(#cccccc)) no-repeat #cccccc;
+	
+	/* Global text properties */
+	color:#666666;
+	font-family:'Open Sans', Arial Black, Gadget, sans-serif;
+	letter-spacing:-0.03em;
 }
 
 .no-cssgradients body {
@@ -11,12 +16,24 @@ body{
 	background-image:url('jpg/bgGradient.jpg');
 }
 
+h1,h2{
+	font-weight:100;
+	/*line-height:12px;*/
+}
+
+h1{
+	font-size:36px;
+}
+
+h2{
+	font-size:33px;
+}
+
 p{
-	color:#666666;
+	/*color:#666666;
 	
-	font-family:'Open Sans', Arial Black, Gadget, sans-serif;
+	font-family:'Open Sans', Arial Black, Gadget, sans-serif;*/
 	font-size:26px;
-	letter-spacing:-0.03em;
 }
 
 a:link{
