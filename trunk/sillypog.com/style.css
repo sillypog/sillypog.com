@@ -49,8 +49,9 @@ a:active{
 }
 
 section{
-	width:1100px;
-	margin:50 auto;
+	/*width:1100px;
+	margin:50 auto;*/
+	margin:0 auto;
 }
 
 #header{
@@ -125,9 +126,15 @@ section{
 	margin-right:50px;
 }
 
+#floater{
+	height:40%;
+	margin-bottom:-230px;	/* Half whatever the height of the current section is, eg #about. */
+}
+
 #about{
 	position:relative;
 	height:460px;
+	width:1100px;
 }
 
 #about header{
