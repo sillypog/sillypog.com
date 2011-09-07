@@ -138,12 +138,14 @@ section{
 }
 
 #about header{
-	background:rgba(153,51,102,0.3);
+	/*background:rgba(153,51,102,0.3);*/
+	background:#993366;
 	height:460px;
 	width:460px;	/* Width and height are half the intended values */
 	
 	-moz-border-radius:460px;
 	-webkit-border-radius:460px;
+	border-radius:460px;
 
 	/*padding:115px;*/
 	
