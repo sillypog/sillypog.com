@@ -5,12 +5,10 @@ body{
 	font-size:16px;
 }
 
-/*.flow{
-	background-color:green;
-	height:20px;	// This is the 'line-height property of the body
-	float:left;
-	clear:left;
-}*/
+#all{
+	margin-top:100px;
+	margin-left:200px;
+}
 
 #content{
 	width:500px;
@@ -23,13 +21,14 @@ body{
 		console.log('wrapText');
 
 		var className = 'flow_'+toWrap,
+			query = '#'+toWrap+' p',
 			lnHeight,
 			wrapStyle;
 
 		// Create a class called flow_[toWrap] that uses the line-height property.
-		//console.log($(toWrap).css('line-height')); // Actually need the property on the text inside the div.
-		lnHeight = 20;
-		wrapStyle = '<style type="text/css">.'+className+'{background-color:green; height:'+lnHeight+'px; float:left; clear:left;}</style>';
+		lnHeight = $(query).css('line-height');
+		console.log(lnHeight);
+		wrapStyle = '<style type="text/css">.'+className+'{/* Automatically generated */ background-color:green; height:'+lnHeight+'; float:left; clear:left;}</style>';
 		$(wrapStyle).appendTo('head');
 
 		for (var i = 0; i < 12; i++){
@@ -58,8 +57,10 @@ body{
 
 
 <body>
+	<div id="all">
 	<div id="content">
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In egestas egestas leo vestibulum dignissim. Morbi imperdiet, magna vitae fermentum iaculis, purus dolor iaculis nisi, eu iaculis nisi magna in elit. Cras ornare, quam sit amet vestibulum lacinia, lorem nisi porttitor libero, sit amet tempor lectus lorem ut ante. Curabitur gravida diam a erat bibendum iaculis. Aenean eu lacus a neque feugiat suscipit nec sed velit. Aliquam erat volutpat. Integer quis est tellus, sed ultrices massa. Vestibulum luctus, erat et pulvinar viverra, sem elit ultrices augue, sit amet viverra ipsum dui nec massa. Mauris dapibus feugiat sapien in pellentesque. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris scelerisque massa at turpis ultricies sed mollis tellus gravida.</p>
+	</div>
 	</div>
 </body>
 </html>
