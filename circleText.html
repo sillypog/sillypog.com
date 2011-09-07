@@ -22,29 +22,28 @@ body{
 	function wrapText(toWrap){
 		console.log('wrapText');
 
-		// Get a reference to the specified div
-		$(toWrap);
+		var className = 'flow_'+toWrap,
+			lnHeight,
+			wrapStyle;
 
 		// Create a class called flow_[toWrap] that uses the line-height property.
 		//console.log($(toWrap).css('line-height')); // Actually need the property on the text inside the div.
-		var lnHeight = 20;
-
-
-		var wrapStyle = '<style type="text/css">.flow_'+toWrap+'{background-color:green; height:'+lnHeight+'px; float:left; clear:left;}</style>';
+		lnHeight = 20;
+		wrapStyle = '<style type="text/css">.'+className+'{background-color:green; height:'+lnHeight+'px; float:left; clear:left;}</style>';
 		$(wrapStyle).appendTo('head');
 
 		for (var i = 0; i < 12; i++){
-					addDiv(Math.round(Math.random() * 50));
-				}
-
-
+			var flowDiv = createDiv(Math.round(Math.random() * 50), className);
+			console.log('Created: '+ flowDiv);
+			$(flowDiv).prependTo('#'+toWrap);
+		}
 	}
 
-	function addDiv(width){
-		var out='<div class="flow" style="width:'+width+'px"></div>';
-		//document.write(out);	// This will not work in jQuery version as it is not called inline anymore.
-		console.log(out);
+	function createDiv(width, className){
+		var out='<div class="'+className+'" style="width:'+width+'px"></div>';
+		return out;
 	}
+
 </script>
 
 <script type="text/javascript">
@@ -59,7 +58,6 @@ body{
 
 
 <body>
-	<!--<script type="text/javascript">wrapText();</script>-->	<!-- This worked but now I'm using jQuery to make portable -->
 	<div id="content">
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In egestas egestas leo vestibulum dignissim. Morbi imperdiet, magna vitae fermentum iaculis, purus dolor iaculis nisi, eu iaculis nisi magna in elit. Cras ornare, quam sit amet vestibulum lacinia, lorem nisi porttitor libero, sit amet tempor lectus lorem ut ante. Curabitur gravida diam a erat bibendum iaculis. Aenean eu lacus a neque feugiat suscipit nec sed velit. Aliquam erat volutpat. Integer quis est tellus, sed ultrices massa. Vestibulum luctus, erat et pulvinar viverra, sem elit ultrices augue, sit amet viverra ipsum dui nec massa. Mauris dapibus feugiat sapien in pellentesque. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris scelerisque massa at turpis ultricies sed mollis tellus gravida.</p>
 	</div>
