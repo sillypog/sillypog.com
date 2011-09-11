@@ -48,11 +48,19 @@ a:active{
 	color:#333333;
 }
 
+/* Remove borders around anchors that are images in IE */
+a img{
+	border:none;
+}
+
 section{
 	/*width:1100px;
 	margin:50 auto;*/
 	margin:0 auto;
 }
+
+
+
 
 #header{
 	width:100%;
@@ -138,8 +146,7 @@ section{
 }
 
 #about header{
-	/*background:rgba(153,51,102,0.3);*/
-	background:#993366;
+	background:rgba(153,51,102,0.3);
 	height:460px;
 	width:460px;	/* Width and height are half the intended values */
 	
@@ -147,11 +154,13 @@ section{
 	-webkit-border-radius:460px;
 	border-radius:460px;
 
-	/*padding:115px;*/
-	
 	text-align:center;
 	
 	float:left;
+}
+
+.no-opacity #about header{
+	background-image:url('png/aboutCircle.png');
 }
 
 #about header h1{
@@ -174,7 +183,7 @@ section{
 
 #aboutLinks{
 	position:absolute;
-	bottom:00px;
+	bottom:0px;
 	right:0px;
 }
 
