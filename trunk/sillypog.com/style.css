@@ -53,14 +53,6 @@ a img{
 	border:none;
 }
 
-section{
-	/*width:1100px;
-	margin:50 auto;*/
-	margin:0 auto;
-}
-
-
-
 
 #header{
 	width:100%;
@@ -134,15 +126,20 @@ section{
 	margin-right:50px;
 }
 
-#floater{
-	height:40%;
-	margin-bottom:-230px;	/* Half whatever the height of the current section is, eg #about. */
+
+
+#sections{
+	width:100%;
+	text-align:center; /* Has to be set so that IE will horizontally centre content */
+	display:table;
 }
 
 #about{
 	position:relative;
 	height:460px;
 	width:1100px;
+	text-align:left;
+	margin: 10% auto;
 }
 
 #about header{
