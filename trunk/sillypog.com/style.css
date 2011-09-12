@@ -1,5 +1,8 @@
-body{
+html{
 	height:100%;
+}
+
+body{
 	margin:0px;
 	
 	background:-moz-radial-gradient(center, #f0f0f0, #cccccc) no-repeat #cccccc;
