@@ -10,6 +10,8 @@ body{
 	
 	background:-moz-radial-gradient(center, #f0f0f0, #cccccc) no-repeat #cccccc;
 	background:-webkit-gradient(radial, 50% 50%, 0, 50% 50%, 500, from(#f0f0f0), to(#cccccc)) no-repeat #cccccc;
+	background-attachment:fixed;
+	
 	
 	/* Global text properties */
 	color:#666666;
@@ -140,6 +142,7 @@ a img{
 	width:100%;
 	text-align:center; /* Has to be set so that IE will horizontally centre content */
 	clear:both;	/* Needed for vertical centering with floater method */
+	overflow-x:auto;
 }
 
 #about{
