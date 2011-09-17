@@ -134,18 +134,26 @@ a img{
 	margin-right:50px;
 }
 
-#floater{
-	float:left; height:40%; margin-bottom:-230px;	/* For vertical centering, margin is half of the section height */
-}
-
 #sections{
 	width:100%;
 	text-align:center; /* Has to be set so that IE will horizontally centre content */
-	clear:both;	/* Needed for vertical centering with floater method */
+	
 	overflow-x:auto;
+	
+	position:absolute;
+	top:103px;	/* Accounts for header and border */
+	bottom:43px; /* Accounts for footer and border */
 }
 
-#about{
+
+
+
+
+#aboutFloater{
+	float:left; height:50%; margin-bottom:-230px;	/* For vertical centering, margin is half of the section height */
+}
+
+#aboutFloated{
 	position:relative;
 	height:460px;
 	width:1100px;
@@ -153,6 +161,7 @@ a img{
 	margin: 0px auto;
 	clear:both;
 }
+
 
 #about header{
 	background:rgba(153,51,102,0.3);
