@@ -19,4 +19,4 @@
 			$this.attr('src',path).removeAttr('svg-src');
 		});
 	}
-}(jQuery));
+})(jQuery);
