@@ -12,7 +12,10 @@
 <script type="text/javascript" src="js/modernizr.custom.97400.js"></script>
 <script type="text/javascript" src="js/jquery.loadSVG.js"></script>
 <script type="text/javascript" src="js/jquery.ba-bbq.min.js"></script>
-<script type="text/javascript" src="js/view_manager.js"></script>
+<script type="text/javascript" src="js/greensock/plugins/CSSPlugin.min.js"></script>
+<script type="text/javascript" src="js/greensock/easing/EasePack.min.js"></script>
+<script type="text/javascript" src="js/greensock/TweenLite.min.js"></script>
+<script type="text/javascript" src="js/sillypog.ViewManager.js"></script>
 <script type="text/javascript" src="js/sillypog.js"></script>
 </head>
 
@@ -31,7 +34,7 @@
 	<section id="about">
     	<div id="aboutFloater"></div>
         <div id="aboutFloated">
-          <header>
+          <header class="bigCircle">
               <h1>My name is Peter Hastie.</h1>
               <h2>I am a software developer.</h2>
           </header>
@@ -59,6 +62,12 @@
                   <a href="#!portfolio"><img class="dynamicImg" svg-src="exitAbout" alt="Launch"></img></a>     
           </div>
     	</div>
+    </section>
+    <section id="portfolio" class="hidden">
+    	<div class="bigCircle"></div>
+    	<img class="dynamicImg" svg-src="twitterT" />
+        <img class="dynamicImg" svg-src="acrobatA" />
+        <img class="dynamicImg" svg-src="exitAbout"/>
     </section>
 </div>
 
