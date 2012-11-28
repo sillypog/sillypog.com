@@ -24,6 +24,10 @@ body{
 	background-image:url('jpg/bgGradient.jpg');
 }
 
+.hidden{
+	display:none;
+}
+
 h1,h2{
 	font-size:36px;
 	line-height:15px;
@@ -169,6 +173,11 @@ footer{
 
 
 #about header{
+	text-align:center;
+	float:left;
+}
+
+.bigCircle{
 	background:rgba(153,51,102,0.3);
 	height:460px;
 	width:460px;	/* Width and height are half the intended values */
@@ -177,13 +186,9 @@ footer{
 	-webkit-border-radius:460px;
 	border-radius:460px;
 	border-style:none;
-
-	text-align:center;
-	
-	float:left;
 }
 
-.no-opacity #about header{
+.no-opacity .bigCircle{
 	background-image:url('png/aboutCircle.png');
 }
 
