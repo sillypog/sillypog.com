@@ -250,6 +250,9 @@ footer{
 	list-style:none;
 }
 
+#contents{
+	float:right;
+}
 
 .paleWhiteBG{
 	width:100%;
