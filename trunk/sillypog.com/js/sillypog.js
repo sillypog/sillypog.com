@@ -26,10 +26,9 @@
 		$('#aboutText>p').each(function(index){
 			TweenLite.to($(this), 0.5, {css:{alpha:0}, ease:Quint.easeIn, delay:0.25 * index});
 		});
-		TweenLite.to($('#about header > *'), 1, {css:{alpha:0}, ease:Quint.easeIn, onComplete:showPortfolio});
+		TweenLite.to($('#about header > *'), 1, {css:{alpha:0}, ease:Quint.easeIn, onComplete:transitionToPortfolio});
 		
-		
-		function showPortfolio(){
+		function transitionToPortfolio(){
 		  // Get the position of the remaining elements in the about page
 		  var bigCirclePosition = $('#about .bigCircle').offset();
 		  // Grab the positions before we hide the about section and it becomes unreadable
@@ -50,9 +49,11 @@
 		  TweenLite.to($bigCircle, 0.5, {css:{width:finalWidth, height:finalWidth, borderRadius:finalWidth, left:finalLeft, top:finalTop, backgroundColor:"rgba(153,51,102,1)"}});
 		  TweenLite.to($('#pc1',$portfolio), 0.5, {css:{width:finalWidth, height:finalWidth, left:finalLeft, top:finalTop}, delay:0.1});
 		  TweenLite.to($('#pc2',$portfolio), 0.5, {css:{width:finalWidth, height:finalWidth, left:finalLeft, top:finalTop}, delay:0.2});
-		  TweenLite.to($('#pc3',$portfolio), 0.5, {css:{left:finalLeft, top:finalTop}, delay:0.3, onComplete:function(){$('[id^="pc"]',$portfolio).remove();}});
+		  TweenLite.to($('#pc3',$portfolio), 0.5, {css:{left:finalLeft, top:finalTop}, delay:0.3, onComplete:function(){$('[id^="pc"]',$portfolio).remove(); portfolio.showContents()}}); 
 		  
-		  // Spread them out as the contents come in
+		  
+		  // Start loading portfolio contents
+			portfolio = portfolio || new sillypog.Portfolio($portfolio);
 		}
 	}
 	
