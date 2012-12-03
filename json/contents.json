@@ -1,6 +1,6 @@
 {
-  "articles" : [{"title": "Where You At", "url": "#!articles/whereyouat", "description": "Single-page ajax application for connecting people via live music."}, 
-  				{"title": "Eveo", "url": "#!articles/eveo", "description": "Tile flipping showcase for the eveo website landing page."}, 
-				{"title": "Campfire", "url": "#!articles/campfire", "description": "Interactive sales data visualisation for the Symantec lobby."},
-				{"title": "Autofuss", "url": "#!articles/autofuss", "description": "Augmented reality business cards."} ]
+  "articles" : [{"title":"Where You At", "url":"#!articles/whereyouat", "icon":"wya", "description":"Single-page ajax application for connecting people via live music."}, 
+  				{"title":"Eveo", "url":"#!articles/eveo", "icon":"campfire", "description":"Tile flipping showcase for the eveo website landing page."}, 
+				{"title":"Campfire", "url":"#!articles/campfire", "icon":"campfire", "description":"Interactive sales data visualisation for the Symantec lobby."},
+				{"title":"Autofuss", "url":"#!articles/autofuss", "icon":"campfire", "description":"Augmented reality business cards."} ]
 }

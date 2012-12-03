@@ -48,6 +48,8 @@ sillypog.Portfolio = (function($){
 		for (var i=0, l=contents.length; i < l; i++){
 			circles[i] = createCircle(contents[i],i);
 		}
+		// Process the icons
+		$('[svg-src]').loadSVG();
 	}
 	
 	Portfolio.prototype.showArticle = function(showArticle){
@@ -86,7 +88,7 @@ sillypog.Portfolio = (function($){
 			fakeCircle.remove();
 		}
 		
-		var circle = $('<a href="'+data.url+'" class="movable portfolioCircle" />').css({left:circleSizeInfo.left, top:circleSizeInfo.top}).appendTo($('#contents',stage));
+		var circle = $('<li class="movable"><a href="'+data.url+'"><div class="portfolioCircle"><img svg-src="'+data.icon+'" /></div></a></li>').css({left:circleSizeInfo.left, top:circleSizeInfo.top}).appendTo($('#contents',stage));
 		
 		circle.on('mouseenter', function(){
 			TweenLite.to($('#description',stage).text(data.description),0.25,{css:{alpha:1}});
