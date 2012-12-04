@@ -25,7 +25,7 @@ sillypog.Portfolio = (function($){
 		instance = this;
 		
 		stage = $stage;
-		stageSizeInfo = {width:stage.width(), height:$('#area',stage).height()};
+		stageSizeInfo = {width:stage.width(), height:$('.area',stage).height()};
 		loadContents();
 	};
 	
@@ -83,7 +83,7 @@ sillypog.Portfolio = (function($){
 			
 			// Get the central position we're going to be creating circles at
 			circleSizeInfo.left = (stage.width() / 2) - (circleSizeInfo.width / 2);
-			circleSizeInfo.top = ($('#area', stage).height() / 2) - (circleSizeInfo.width / 2);
+			circleSizeInfo.top = ($('.area', stage).height() / 2) - (circleSizeInfo.width / 2);
 			
 			fakeCircle.remove();
 		}
