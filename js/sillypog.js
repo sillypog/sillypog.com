@@ -18,17 +18,15 @@
 		viewManager = new sillypog.ViewManager();
 		// Transitions are added after the initial page set up so they won't run first time.
 		viewManager.specifyTransition('','portfolio', transitionAboutPortfolio);
+		viewManager.specifyTransition('','links', transitionAboutLinks);
 	});
 	
 	function transitionAboutPortfolio(){
 		console.log('transitionAboutPortfolio');
-		// Fade the text out and just leave the bubbles
-		$('#aboutText>p').each(function(index){
-			TweenLite.to($(this), 0.5, {css:{alpha:0}, ease:Quint.easeIn, delay:0.25 * index});
-		});
-		TweenLite.to($('#about header > *'), 1, {css:{alpha:0}, ease:Quint.easeIn, onComplete:transitionToPortfolio});
 		
-		function transitionToPortfolio(){
+		exitAbout(enterPortfolio);
+	
+		function enterPortfolio(){
 		  // Get the position of the remaining elements in the about page
 		  var bigCirclePosition = $('#about .bigCircle').offset();
 		  // Grab the positions before we hide the about section and it becomes unreadable
@@ -45,7 +43,7 @@
 		  // Bring them all into the center 
 		  var finalWidth = $('#pc3').width();
 		  var finalLeft = ($portfolio.width() / 2) - (finalWidth / 2);
-		  var finalTop = ($('#area').height() / 2) - (finalWidth / 2);
+		  var finalTop = ($('.area', $portfolio).height() / 2) - (finalWidth / 2);
 		  TweenLite.to($bigCircle, 0.5, {css:{width:finalWidth, height:finalWidth, borderRadius:finalWidth, left:finalLeft, top:finalTop, backgroundColor:"rgba(153,51,102,1)"}});
 		  TweenLite.to($('#pc1',$portfolio), 0.5, {css:{width:finalWidth, height:finalWidth, left:finalLeft, top:finalTop}, delay:0.1});
 		  TweenLite.to($('#pc2',$portfolio), 0.5, {css:{width:finalWidth, height:finalWidth, left:finalLeft, top:finalTop}, delay:0.2});
@@ -55,6 +53,24 @@
 		  // Start loading portfolio contents
 			portfolio = portfolio || new sillypog.Portfolio($portfolio);
 		}
+	}
+	
+	function transitionAboutLinks(){
+		exitAbout(enterLinks);
+		
+		function enterLinks(){
+		  	$('#about').addClass('hidden');
+		  	var $links = $('#links').removeClass('hidden');
+			$('[svg-src]',$links).loadSVG();
+		}
+	}
+	
+	function exitAbout(onComplete){
+		// Fade the text out and just leave the bubbles
+		$('#aboutText>p').each(function(index){
+			TweenLite.to($(this), 0.5, {css:{alpha:0}, ease:Quint.easeIn, delay:0.25 * index});
+		});
+		TweenLite.to($('#about header > *'), 1, {css:{alpha:0}, ease:Quint.easeIn, onComplete:onComplete});
 	}
 	
 	
