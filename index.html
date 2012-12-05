@@ -17,6 +17,7 @@
 <script type="text/javascript" src="js/greensock/TweenLite.min.js"></script>
 <script type="text/javascript" src="js/sillypog.ViewManager.js"></script>
 <script type="text/javascript" src="js/sillypog.Portfolio.js"></script>
+<script type="text/javascript" src="js/sillypog.Links.js"></script>
 <script type="text/javascript" src="js/sillypog.js"></script>
 </head>
 
@@ -74,9 +75,9 @@
         <img id="pc3" class="movable" svg-src="exitAbout"/>
     </section>
     <section id="links" class="hidden">
-    	<div class="area"></div>
-        <ul class="plainList">
-        	<li class="movable">
+    	<div class="area hidden"></div><!-- Hide the area when the list is not composed of movable elements -->
+        <ul id="linksList" class="plainList">
+        	<li>
               <a href="http://twitter.com/#!/sillypog">
                 <div class="portfolioCircle">
                   <div class="linksTopSpacer"></div>
@@ -84,7 +85,7 @@
                 </div>
               </a>
             </li>
-            <li class="movable">
+            <li>
               <a href="http://poglogin.blogspot.com">
                 <div class="portfolioCircle">
                   <div class="linksTopSpacer"></div>
@@ -92,7 +93,7 @@
                 </div>
               </a>
             </li>
-            <li class="movable">
+            <li>
               <a href="http://github.com/sillypog">
                 <div class="portfolioCircle">
                   <div class="linksTopSpacer"></div>
@@ -100,7 +101,7 @@
                 </div>
               </a>
             </li>
-            <li class="movable">
+            <li>
               <a href="http://www.linkedin.com/pub/peter-hastie/15/475/845">
                 <div class="portfolioCircle">
                   <div class="linksTopSpacer"></div>
@@ -108,7 +109,7 @@
                 </div>
               </a>
             </li>
-            <li class="movable">
+            <li>
               <a href="mailto:pete@sillypog.com">
                 <div class="portfolioCircle">
                   <div class="linksTopSpacer"></div>
@@ -126,7 +127,7 @@
 		<p><a href="/">About</a></p>
 		<p><a href="#!portfolio">Portfolio</a></p>
 		<p style="visibility:hidden"><a href="http://www.sillypog.com">Filter</a></p>
-		<p id="email"><a href="mailto:pete@sillypog.com">pete@sillypog.com</a></p>
+		<p id="contact"><a href="mailto:pete@sillypog.com">pete@sillypog.com</a></p>
 	</nav>
 </footer>
 
