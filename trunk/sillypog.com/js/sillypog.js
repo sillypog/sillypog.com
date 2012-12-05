@@ -5,6 +5,7 @@
 	
 	var viewManager;
 	var portfolio;
+	var links;
 	
 	/**
 	* Document ready function
@@ -61,10 +62,8 @@
 		function enterLinks(){
 		  	$('#about').addClass('hidden');
 		  	var $links = $('#links').removeClass('hidden');
-			$('[svg-src]',$links).loadSVG();
-			$('li',$links).each(function(index){
-				$(this).css('left',index*200+'px');
-			});
+			
+			links = links || new sillypog.Links($links, $('#contact'));
 		}
 	}
 	

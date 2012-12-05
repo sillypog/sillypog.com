@@ -135,7 +135,7 @@ footer{
 	user-select: none;
 }
 
-#footerButtons #email{
+#footerButtons #contact{
 	float:right;
 	margin-right:50px;
 }
@@ -291,6 +291,16 @@ footer{
 
 .linksTopSpacer{
 	height:40px;
+}
+
+#linksList{
+	/*max-width:600px;*/ /* Can change the shape here */
+	margin:auto;
+	padding:0;
+}
+#linksList > li{
+	display:inline-block;
+	padding:20px
 }
 
 
