@@ -62,6 +62,9 @@
 		  	$('#about').addClass('hidden');
 		  	var $links = $('#links').removeClass('hidden');
 			$('[svg-src]',$links).loadSVG();
+			$('li',$links).each(function(index){
+				$(this).css('left',index*200+'px');
+			});
 		}
 	}
 	
