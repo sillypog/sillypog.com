@@ -20,6 +20,13 @@
 		// Transitions are added after the initial page set up so they won't run first time.
 		viewManager.specifyTransition('','portfolio', transitionAboutPortfolio);
 		viewManager.specifyTransition('','links', transitionAboutLinks);
+		
+		// Circulate
+		var circulator = new sillypog.Circulator();
+		$('#aboutText > p').each(function(){
+			circulator.circulate($(this), $('.bigCircle'), true);
+		});
+		
 	});
 	
 	function transitionAboutPortfolio(){

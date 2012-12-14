@@ -182,6 +182,8 @@ footer{
 	height:460px;
 	width:460px;	/* Width and height are half the intended values */
 	
+	margin-right:20px;
+	
 	-moz-border-radius:460px;
 	-webkit-border-radius:460px;
 	border-radius:460px;
@@ -198,9 +200,11 @@ footer{
 }
 
 #aboutText{	
-	position:absolute;
+	/*position:absolute;
 	left:425px;
-	top:75px;
+	top:75px;*/
+	margin-top:75px;
+	float:left;
 	width:600px;
 }
 
