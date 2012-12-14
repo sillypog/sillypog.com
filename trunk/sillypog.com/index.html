@@ -13,6 +13,8 @@
 <script type="text/javascript" src="js/jquery.loadSVG.js"></script>
 <script type="text/javascript" src="js/jquery.ba-bbq.min.js"></script>
 <script type="text/javascript" src="js/jquery.lettering.js"></script>
+<script type="text/javascript" src="js/jquery.tmpl.js"></script>
+<script type="text/javascript" src="js/jquery.templateLoader.js"></script>
 <script type="text/javascript" src="js/greensock/plugins/CSSPlugin.min.js"></script>
 <script type="text/javascript" src="js/greensock/easing/EasePack.min.js"></script>
 <script type="text/javascript" src="js/greensock/TweenLite.min.js"></script>
@@ -21,6 +23,14 @@
 <script type="text/javascript" src="js/sillypog.Portfolio.js"></script>
 <script type="text/javascript" src="js/sillypog.Links.js"></script>
 <script type="text/javascript" src="js/sillypog.js"></script>
+
+<!-- Templates -->
+<script type="text/x-jQuery-tmpl" id="link_template">
+	<div class="portfolioCircle">
+		<div class="linksTopSpacer"></div>
+		<div class="link-${icon}"></div>
+	</div>
+</script>
 </head>
 
 <body>
@@ -66,46 +76,11 @@
     <section id="links" class="hidden">
     	<div class="area hidden"></div><!-- Hide the area when the list is not composed of movable elements -->
         <ul id="linksList" class="plainList">
-        	<li>
-              <a href="http://twitter.com/#!/sillypog">
-                <div class="portfolioCircle">
-                  <div class="linksTopSpacer"></div>
-                  <div class="link-twitter"></div>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="http://poglogin.blogspot.com">
-                <div class="portfolioCircle">
-                  <div class="linksTopSpacer"></div>
-                  <div class="link-blogger"></div>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="http://github.com/sillypog">
-                <div class="portfolioCircle">
-                  <div class="linksTopSpacer"></div>
-                  <div class="link-github"></div>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="http://www.linkedin.com/pub/peter-hastie/15/475/845">
-                <div class="portfolioCircle">
-                  <div class="linksTopSpacer"></div>
-                  <div class="link-linkedin"></div>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="mailto:pete@sillypog.com">
-                <div class="portfolioCircle">
-                  <div class="linksTopSpacer"></div>
-                  <div class="link-email"></div>
-                </div>
-              </a>
-            </li>
+        	<li><a href="http://twitter.com/#!/sillypog" id="twitter"></a></li>
+            <li><a href="http://poglogin.blogspot.com" id="blogger"></a></li>
+            <li><a href="http://github.com/sillypog" id="github"></a></li>
+            <li><a href="http://www.linkedin.com/pub/peter-hastie/15/475/845" id="linkedin"></a></li>
+            <li><a href="mailto:pete@sillypog.com" id="email"></a></li>
         </ul>
     </section>
 </div>

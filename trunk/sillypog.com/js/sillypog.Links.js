@@ -25,6 +25,9 @@ sillypog.Links = (function($){
 		
 		baseText = $contact.text();
 		
+		// Wrap templates around the links in the list
+		applyTemplates();
+		
 		// Change the text of the contact element when we mouse over
 		$('a', $stage).on('mouseenter', showHighlightText);
 		$('a', $stage).on('mouseleave', showBaseText);
@@ -33,6 +36,15 @@ sillypog.Links = (function($){
 	//----------
 	// Private methods
 	//----------
+	function applyTemplates(){
+		$('#linksList a', stage).each(function(){
+			var a = $(this);
+			var properties = {	icon:a.attr('id'),
+								url:a.attr('href')};
+			$.tmpl(sillypog.templates.LINK_TEMPLATE, properties).appendTo(a);
+		});
+	}
+	
 	function showHighlightText(e){
 		//console.log('showHighlightText',e,this);
 		var linkText = $(this).attr('href');

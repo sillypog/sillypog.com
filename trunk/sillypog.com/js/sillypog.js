@@ -1,4 +1,8 @@
-(function($){
+// Create a namespace for templates
+var sillypog = sillypog || {};
+sillypog.templates = {};
+
+(function($, templates){
 	'use strict';
 	
 	console.log("Sillypog:*");
@@ -12,6 +16,9 @@
 	*/
 	$(function(){
 		console.log('Document ready');
+		
+		// Compile templates
+		$('[type="text/x-jQuery-tmpl"]').compileTemplates(templates);
 		
 		// Set the source for any .dynamicImg classes
 		$('[svg-src]').loadSVG();	// Uses custom plugin
@@ -83,4 +90,4 @@
 	}
 	
 	
-}(jQuery));
+}(jQuery, sillypog.templates));
