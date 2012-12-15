@@ -12,6 +12,8 @@ sillypog.Links = (function($){
 	
 	var baseText; 
 	
+	var shown;
+	
 	//----------
 	// Constructor
 	//----------
@@ -32,6 +34,25 @@ sillypog.Links = (function($){
 	Links.prototype.show = function(){
 		stage.removeClass('hidden');
 		
+		if (!shown){
+			firstShow();
+		}
+		shown = true;
+	}
+	
+	Links.prototype.intro = function(params){
+		this.show();	// No animation yet
+	}
+	
+	Links.prototype.outro = function(){
+		console.log('Links.outro');
+		outroComplete();
+	}
+	
+	//----------
+	// Private methods
+	//----------
+	function firstShow(){
 		// Wrap templates around the links in the list
 		applyTemplates();
 		
@@ -40,16 +61,6 @@ sillypog.Links = (function($){
 		$('a', stage).on('mouseleave', showBaseText);
 	}
 	
-	Links.prototype.intro = function(params){
-		this.show();	// No animation yet
-	}
-	
-	Links.prototype.outro = function(){
-	}
-	
-	//----------
-	// Private methods
-	//----------
 	function applyTemplates(){
 		$('#linksList a', stage).each(function(){
 			var a = $(this);
@@ -71,6 +82,12 @@ sillypog.Links = (function($){
 	
 	function showBaseText(e){
 		contact.text(baseText);
+	}
+	
+	function outroComplete(){
+		stage.addClass('hidden');
+		// Let the manager know that this page is now hidden. Include the position of the big circle in the event information.
+		$(instance).trigger(sillypog.events.OUTRO_COMPLETE);
 	}
 	
 	// Export
