@@ -11,29 +11,31 @@ sillypog.ViewManager = (function($){
 	//----------
 	// Private properties
 	//----------
-	var specificTransitions = {};
-	var currentPage = '';
-	var currentSubpage = '';
+	var pages,
+		currentPage,
+		currentSubpage = '';
 	
 	
-	//----------
-	// Constructor
-	//----------
-	var ViewManager = function(){
+	/*----------
+	* Constructor
+	*Each section of the appliation has a class that manages it.
+	* These are added here with a name corresponding to the page name in the url.
+	* Every page implements the same interface so the manager can call the correct method as needed.
+	\*----------*/
+	var ViewManager = function(pageInfo){
 		console.log('ViewManager: Constructor');
 		
+		pages = pageInfo;
+		
+		// Listen for events from pages
+		for (var i in pages){
+			$(pages[i]).bind(sillypog.events.OUTRO_COMPLETE, showCurrentPage);
+		}
+		
 		$(window).on('hashchange', onHashChange);
-
 		onHashChange();
 	};
 	
-	//----------
-	// Public methods
-	//----------
-	ViewManager.prototype.specifyTransition = function(oldPage, newPage, callback){
-		specificTransitions[oldPage] = specificTransitions[oldPage] || {};
-		specificTransitions[oldPage][newPage] = callback;
-	}
 	
 	//----------
 	// Private methods
@@ -49,7 +51,7 @@ sillypog.ViewManager = (function($){
 		var page = hashParts[0] || '';
 		var subpage = hashParts[1] || '';
 		
-		if (page != currentPage || subpage != currentSubpage){
+		if (page !== currentPage || subpage !== currentSubpage){
 			showPage(page, subpage);
 		}
 		
@@ -60,21 +62,19 @@ sillypog.ViewManager = (function($){
 	var showPage = function showPage(page, subpage){
 		console.log('ViewManager.showPage:',page, subpage);
 		
-		// Check for specific transition
-		if (specificTransitions[currentPage] && specificTransitions[currentPage][page]){
-			specificTransitions[currentPage][page]();
+		if (typeof currentPage !== "undefined"){
+			pages[currentPage].outro();
+		} else {
+			pages[page].show();
 		}
-		
-		// Dispatch an event to the main application
-		
-		
-		/*switch (page){
-			case 'portfolio':
-				// Dispatch an event and let the application decide what to do with this
-				break;
-			case '':	// Same as default
-			default:
-		}*/
+	}
+	
+	/**
+	* Called in response to OUTRO_COMPLETE from exiting page
+	*/
+	var showCurrentPage = function showCurrentPage(event, params){
+		console.log('!!',params);
+		pages[currentPage].intro(params);
 	}
 	
 	// Export
