@@ -40,31 +40,31 @@ sillypog.ViewManager = (function($){
 	//----------
 	// Private methods
 	//----------
-	
-	var onHashChange = function onHashChange(e){
+	function onHashChange(e){
 		console.log('ViewManager.onHashChange',e);
 		
-		var hash = $.param.fragment().substr(1) || '';
-		console.log('Hash change', hash);
+		var path = parseURL();
 		
-		var hashParts = hash.split('/');
-		var page = hashParts[0] || '';
-		var subpage = hashParts[1] || '';
-		
-		if (page !== currentPage || subpage !== currentSubpage){
-			showPage(page, subpage);
+		if (path.page !== currentPage){
+			changePage(path.page, path.subpage);
+		}
+		if (path.subpage !== currentSubpage){
+			// Let page classes manage their own subpage changes
 		}
 		
-		currentPage = page;
-		currentSubpage = subpage;
+		console.log('ViewManager: done onHashChange');
 	}
 	
-	var showPage = function showPage(page, subpage){
+	function changePage(page, subpage){
 		console.log('ViewManager.showPage:',page, subpage);
 		
-		if (typeof currentPage !== "undefined"){
-			pages[currentPage].outro();
+		var cPage = currentPage;
+		currentPage = page;	// Need to set the new currentPage before calling outro so it's ready for outroComplete if there's no animation
+		
+		if (typeof cPage !== "undefined"){
+			pages[cPage].outro();
 		} else {
+			// This is only relevant when the app first loads
 			pages[page].show();
 		}
 	}
@@ -72,9 +72,18 @@ sillypog.ViewManager = (function($){
 	/**
 	* Called in response to OUTRO_COMPLETE from exiting page
 	*/
-	var showCurrentPage = function showCurrentPage(event, params){
-		console.log('!!',params);
+	function showCurrentPage(event, params){
+		// Get page to show - don't rely on stored variables, the browser location is best guide.
+		console.log('showCurrentPage:',currentPage);
 		pages[currentPage].intro(params);
+	}
+	
+	function parseURL(){
+		var hash = $.param.fragment().substr(1) || '';
+		var hashParts = hash.split('/');
+		var page = hashParts[0] || '';
+		var subpage = hashParts[1] || '';
+		return {page:page, subpage:subpage};
 	}
 	
 	// Export
