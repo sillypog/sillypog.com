@@ -24,14 +24,28 @@ sillypog.Links = (function($){
 		contact = $contact;
 		
 		baseText = $contact.text();
+	};
+	
+	//----------
+	// Public methods
+	//----------
+	Links.prototype.show = function(){
+		stage.removeClass('hidden');
 		
 		// Wrap templates around the links in the list
 		applyTemplates();
 		
 		// Change the text of the contact element when we mouse over
-		$('a', $stage).on('mouseenter', showHighlightText);
-		$('a', $stage).on('mouseleave', showBaseText);
-	};
+		$('a', stage).on('mouseenter', showHighlightText);
+		$('a', stage).on('mouseleave', showBaseText);
+	}
+	
+	Links.prototype.intro = function(params){
+		this.show();	// No animation yet
+	}
+	
+	Links.prototype.outro = function(){
+	}
 	
 	//----------
 	// Private methods

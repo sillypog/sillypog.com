@@ -6,12 +6,10 @@ sillypog.Portfolio = (function($){
 	// Private properties
 	//----------
 	var instance;	// Allow private properties to call public methods
-	
 	var stage;	// jQuery object of the DOM element
-	var stageSizeInfo;
 	
 	var contents;
-	var showContentsOnReady;
+	var showOnReady;
 	
 	var circles = [];
 	var circleSizeInfo;
@@ -23,30 +21,62 @@ sillypog.Portfolio = (function($){
 		console.log('Portfolio: Constructor');
 		
 		instance = this;
-		
 		stage = $stage;
-		stageSizeInfo = {width:stage.width(), height:$('.area',stage).height()};
-		loadContents();
 	};
 	
 	//----------
 	// Public methods
 	//----------
-	Portfolio.prototype.showContents = function(){
-		console.log('Portfolio.showContents');
+	
+	
+	/**
+	* Params contains the bigCirclePosition we need to line up with
+	*/
+	Portfolio.prototype.intro = function(params){
+		stage.removeClass('hidden');
+		
+		// Start loading portfolio contents
 		if (!contents){
-			console.log('Portfolio.showContents waiting for load');
-			showContentsOnReady = true;
+			loadContents();
+		}
+		
+		// Match circle positions to what we've been passed
+		var $bigCircle = $('.bigCircle', stage).offset(params.bigCirclePosition);
+		$('[id^="pc"]', stage).each(function(index){
+			$(this).offset(params.smallCirclePositions[index]);
+		});
+		
+		// Bring them all into the center 
+		var finalWidth = $('#pc3').width();
+		var finalLeft = (stage.width() / 2) - (finalWidth / 2);
+		var finalTop = ($('.area', stage).height() / 2) - (finalWidth / 2);
+		TweenLite.to($bigCircle, 0.5, {css:{width:finalWidth, height:finalWidth, borderRadius:finalWidth, left:finalLeft, top:finalTop, backgroundColor:"rgba(153,51,102,1)"}});
+		TweenLite.to($('#pc1',stage), 0.5, {css:{width:finalWidth, height:finalWidth, left:finalLeft, top:finalTop}, delay:0.1});
+		TweenLite.to($('#pc2',stage), 0.5, {css:{width:finalWidth, height:finalWidth, left:finalLeft, top:finalTop}, delay:0.2});
+		TweenLite.to($('#pc3',stage), 0.5, {css:{left:finalLeft, top:finalTop}, delay:0.3, onComplete:function(){$('[id^="pc"]',stage).remove(); instance.show()}}); 
+	}
+	
+	Portfolio.prototype.outro = function(){
+	}
+	
+	Portfolio.prototype.show = function(){
+		console.log('Portfolio.show');
+		if (!contents){
+			console.log('Portfolio.show waiting for load');
+			showOnReady = true;
 			return;
 		} 
 		
 		console.log('Building out',contents.length,'links');
 		
+		// Get stage dimensions
+		var stageSizeInfo = {width:stage.width(), height:$('.area',stage).height()};
+		
 		// Clear the stage
 		$('.movable', stage).remove();
 		// Create circle representations and pop them out from the center
 		for (var i=0, l=contents.length; i < l; i++){
-			circles[i] = createCircle(contents[i],i);
+			circles[i] = createCircle(contents[i], i, stageSizeInfo);
 		}
 		// Process the icons
 		$('[svg-src]').loadSVG();
@@ -70,12 +100,12 @@ sillypog.Portfolio = (function($){
 	var onContentsLoaded = function onContentsLoaded(){
 		// Dispatch event? // Resolve deferred?
 		console.log('Contents loaded', contents);
-		if (showContentsOnReady){
-			instance.showContents();
+		if (showOnReady){
+			instance.show();
 		}
 	}
 	
-	var createCircle = function(data, index){
+	var createCircle = function(data, index, stageSizeInfo){
 		if (!circleSizeInfo){
 			circleSizeInfo = {};
 			var fakeCircle = $('<div class="portfolioCircle" />').appendTo(stage);
