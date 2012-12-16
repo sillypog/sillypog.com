@@ -18,8 +18,6 @@ sillypog.Portfolio = (function($){
 	// Constructor
 	//----------
 	var Portfolio = function($stage){
-		console.log('Portfolio: Constructor');
-		
 		instance = this;
 		stage = $stage;
 	};

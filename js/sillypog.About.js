@@ -24,9 +24,6 @@ sillypog.About = (function($){
 		});
 		
 		stage.removeClass('hidden');
-		
-		// This is the test call, it should actually be in outroComplete
-		//$(this).trigger(sillypog.events.OUTRO_COMPLETE, {bigCircle:'bigCircle'});
 	}
 	
 	About.prototype.intro = function(){
@@ -45,7 +42,6 @@ sillypog.About = (function($){
 	* Private methods
 	*/
 	function outroComplete(){
-		console.log('outroComplete');
 		// Store the circle positions before hiding everything.
 		var params = {	bigCirclePosition: $('#about .bigCircle').offset(),
 						smallCirclePositions: [$('#ac1').offset(), $('#ac2').offset(), $('#ac3').offset()]};
