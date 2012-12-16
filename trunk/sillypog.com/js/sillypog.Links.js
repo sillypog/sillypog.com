@@ -45,7 +45,6 @@ sillypog.Links = (function($){
 	}
 	
 	Links.prototype.outro = function(){
-		console.log('Links.outro');
 		outroComplete();
 	}
 	

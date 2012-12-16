@@ -19,12 +19,11 @@ sillypog.events = {
 	* Document ready function
 	*/
 	$(function(){
-		console.log('Document ready');
-		
 		// Compile templates
 		$('[type="text/x-jQuery-tmpl"]').compileTemplates(templates);
 		
 		var pages = {
+			'none'		: new sillypog.NoView(),
 			'' 			: new sillypog.About($('#about')),
 			'portfolio' : new sillypog.Portfolio($('#portfolio')),
 			'links'		: new sillypog.Links($('#links'), $('#contact'))

@@ -12,19 +12,17 @@ sillypog.ViewManager = (function($){
 	// Private properties
 	//----------
 	var pages,
-		currentPage,
+		currentPage = 'none',
 		currentSubpage = '';
 	
 	
 	/*----------
 	* Constructor
-	*Each section of the appliation has a class that manages it.
+	* Each section of the appliation has a class that manages it.
 	* These are added here with a name corresponding to the page name in the url.
 	* Every page implements the same interface so the manager can call the correct method as needed.
 	\*----------*/
 	var ViewManager = function(pageInfo){
-		console.log('ViewManager: Constructor');
-		
 		pages = pageInfo;
 		
 		// Listen for events from pages
@@ -51,29 +49,21 @@ sillypog.ViewManager = (function($){
 		if (path.subpage !== currentSubpage){
 			// Let page classes manage their own subpage changes
 		}
-		
-		console.log('ViewManager: done onHashChange');
 	}
 	
 	function changePage(page, subpage){
-		console.log('ViewManager.showPage:',page, subpage);
+		console.log('ViewManager.changePage to:',page, subpage);
 		
 		var cPage = currentPage;
 		currentPage = page;	// Need to set the new currentPage before calling outro so it's ready for outroComplete if there's no animation
 		
-		if (typeof cPage !== "undefined"){
-			pages[cPage].outro();
-		} else {
-			// This is only relevant when the app first loads
-			pages[page].show();
-		}
+		pages[cPage].outro();
 	}
 	
 	/**
 	* Called in response to OUTRO_COMPLETE from exiting page
 	*/
 	function showCurrentPage(event, params){
-		// Get page to show - don't rely on stored variables, the browser location is best guide.
 		console.log('showCurrentPage:',currentPage);
 		pages[currentPage].intro(params);
 	}
