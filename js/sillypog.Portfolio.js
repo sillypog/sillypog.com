@@ -57,6 +57,7 @@ sillypog.Portfolio = (function($){
 	}
 	
 	Portfolio.prototype.outro = function(){
+		outroComplete();
 	}
 	
 	Portfolio.prototype.show = function(){
@@ -131,6 +132,12 @@ sillypog.Portfolio = (function($){
 		TweenLite.to(circle, 0.5, {css:{top:Math.random() * (stageSizeInfo.height-circleSizeInfo.width), left:Math.random() * (stageSizeInfo.width-circleSizeInfo.width), alpha:0.8}, delay:index*0.2});
 		
 		return circle;
+	}
+	
+	function outroComplete(){
+		stage.addClass('hidden');
+		// Let the manager know that this page is now hidden. Include the position of the big circle in the event information.
+		$(instance).trigger(sillypog.events.OUTRO_COMPLETE);
 	}
 	
 	// Export
