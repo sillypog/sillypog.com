@@ -39,7 +39,7 @@ sillypog.Portfolio = (function($){
 		}
 		
 		// Match circle positions to what we've been passed
-		var $bigCircle = $('.bigCircle', stage).offset(params.bigCirclePosition);
+		/*var $bigCircle = $('.bigCircle', stage).offset(params.bigCirclePosition);
 		$('[id^="pc"]', stage).each(function(index){
 			$(this).offset(params.smallCirclePositions[index]);
 		});
@@ -51,7 +51,8 @@ sillypog.Portfolio = (function($){
 		TweenLite.to($bigCircle, 0.5, {css:{width:finalWidth, height:finalWidth, borderRadius:finalWidth, left:finalLeft, top:finalTop, backgroundColor:"rgba(153,51,102,1)"}});
 		TweenLite.to($('#pc1',stage), 0.5, {css:{width:finalWidth, height:finalWidth, left:finalLeft, top:finalTop}, delay:0.1});
 		TweenLite.to($('#pc2',stage), 0.5, {css:{width:finalWidth, height:finalWidth, left:finalLeft, top:finalTop}, delay:0.2});
-		TweenLite.to($('#pc3',stage), 0.5, {css:{left:finalLeft, top:finalTop}, delay:0.3, onComplete:function(){$('[id^="pc"]',stage).remove(); instance.show()}}); 
+		TweenLite.to($('#pc3',stage), 0.5, {css:{left:finalLeft, top:finalTop}, delay:0.3, onComplete:function(){$('[id^="pc"]',stage).remove(); instance.show()}}); */
+		this.show();
 	}
 	
 	Portfolio.prototype.outro = function(){

@@ -5,6 +5,8 @@ sillypog.About = (function($){
 	var instance;
 	var stage;
 	
+	var shown;
+	
 	/**
 	* Constructor
 	*/
@@ -14,16 +16,18 @@ sillypog.About = (function($){
 	};
 	
 	About.prototype.show = function(){
-		// Set the source for any .dynamicImg classes
-		$('[svg-src]').loadSVG();	// Uses custom plugin
-		
-		// Circulate
-		var circulator = new sillypog.Circulator();
-		$('#aboutText > p', stage).each(function(){
-			circulator.circulate($(this), $('.bigCircle'), true);
-		});
-		
 		stage.removeClass('hidden');
+		if (!shown){
+			// Set the source for any .dynamicImg classes
+			$('[svg-src]').loadSVG();	// Uses custom plugin
+			
+			// Circulate
+			var circulator = new sillypog.Circulator();
+			$('#aboutText > p', stage).each(function(){
+				circulator.circulate($(this), $('.bigCircle'), true);
+			});
+		}
+		shown = true;
 	}
 	
 	About.prototype.intro = function(){
@@ -32,10 +36,11 @@ sillypog.About = (function($){
 	
 	About.prototype.outro = function(){
 		// Fade the text out and just leave the bubbles
-		$('#aboutText>p', stage).each(function(index){
+		/*$('#aboutText>p', stage).each(function(index){
 			TweenLite.to($(this), 0.5, {css:{alpha:0}, ease:Quint.easeIn, delay:0.25 * index});
 		});
-		TweenLite.to($('#about header > *'), 1, {css:{alpha:0}, ease:Quint.easeIn, onComplete:outroComplete});
+		TweenLite.to($('#about header > *'), 1, {css:{alpha:0}, ease:Quint.easeIn, onComplete:outroComplete});*/
+		outroComplete();
 	}
 	
 	/**
