@@ -74,6 +74,18 @@ a img{
 	position:absolute;
 }
 
+.plainList{
+	list-style:none;
+}
+
+.paleWhiteBG{
+	width:100%;
+	height:100%;
+	background: #FFFFFF;
+	opacity:0.3;
+	filter:alpha(opacity=30);	
+}
+
 
 /*-----------------
 * Global header
@@ -245,6 +257,11 @@ footer{
 	margin-left:75px;
 }
 
+
+/*-----------------
+* Section: Portfolio
+*
+*-----------------*/
 #description{
 	float:left;
 	padding:20px;	
@@ -267,22 +284,15 @@ footer{
 	border-style:none;
 }
 
-.plainList{
-	list-style:none;
-}
-
 #contents{
 	float:right;
 }
 
-.paleWhiteBG{
-	width:100%;
-	height:100%;
-	background: #FFFFFF;
-	opacity:0.3;
-	filter:alpha(opacity=30);	
-}
 
+/*-----------------
+* Section: Links
+*
+*-----------------*/
 .svg [class^="link-"], .inlinesvg [class^="link-"]{
 	background-image:url(svg/link-icons.svg);
 	width:100px;
@@ -324,6 +334,16 @@ footer{
 	padding:20px
 }
 
+
+/*-----------------
+* Section: Articles
+*
+*-----------------*/
+article{
+	width:1100px;
+	text-align:left;
+	margin: 0px auto;
+}
 
 
 

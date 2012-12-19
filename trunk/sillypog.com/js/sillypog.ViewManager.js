@@ -46,8 +46,11 @@ sillypog.ViewManager = (function($){
 		if (path.page !== currentPage){
 			changePage(path.page, path.subpage);
 		}
-		if (path.subpage !== currentSubpage){
+		
+		if (path.subpage !== currentSubpage && pages[currentPage].changeSubpage){
 			// Let page classes manage their own subpage changes
+			pages[currentPage].changeSubpage(path.subpage);
+			currentSubpage = path.subpage;
 		}
 	}
 	

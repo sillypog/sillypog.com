@@ -82,9 +82,6 @@ sillypog.Portfolio = (function($){
 		$('[svg-src]').loadSVG();
 	}
 	
-	Portfolio.prototype.showArticle = function(showArticle){
-	}
-	
 	//----------
 	// Private methods
 	//----------

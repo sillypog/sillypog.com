@@ -26,7 +26,8 @@ sillypog.events = {
 			'none'		: new sillypog.NoView(),
 			'' 			: new sillypog.About($('#about')),
 			'portfolio' : new sillypog.Portfolio($('#portfolio')),
-			'links'		: new sillypog.Links($('#links'), $('#contact'))
+			'links'		: new sillypog.Links($('#links'), $('#contact')),
+			'articles'	: new sillypog.Articles($('#articles'))
 		};
 		
 		viewManager = new sillypog.ViewManager(pages);
