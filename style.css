@@ -38,6 +38,11 @@ h2{
 	letter-spacing:-0.025em;
 }
 
+h3{
+	font-size:24px;
+	font-weight:400;
+}
+
 p{
 	font-weight:400;
 	font-size:18px;
@@ -343,6 +348,25 @@ article{
 	width:1100px;
 	text-align:left;
 	margin: 0px auto;
+}
+
+.articleCircle{
+	background:rgb(153,51,102);
+	height:200px;
+	width:200px;	/* Width and height are half the intended values */
+	
+	-moz-border-radius:200px;
+	-webkit-border-radius:200px;
+	border-radius:200px;
+	border-style:none;
+	
+	margin-right:20px;
+	
+	float:left;
+}
+
+.articleCircle > img{
+	padding:50px;	/* Centers the image in the circle both horizontally and vertically */
 }
 
 
