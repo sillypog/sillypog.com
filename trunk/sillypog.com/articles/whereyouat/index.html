@@ -1,7 +1,7 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
+</head>-->
 
 <body>
  <article>
@@ -10,9 +10,35 @@
     </div>
  	<h1>Where You At</h1>
     <h3><a href="http://whereyouat.loomisdev.com">http://whereyouat.loomisdev.com</a></h3>
-    <p>Where You At is a web application that connects your social network with live music events in your area. By logging in with your Facebook account, you are able to tell which events your friends plan to attend.</p>
+    <p>Where You At is a web application that connects your social network with live music events in your area. By logging in with your Facebook account, you are able to tell which events your friends plan to attend. Event searches can be filtered according to your musical preferences, as well as social factors calculated from aggregate user data.</p>
     <p>Loomis Group designed and built the site for StubHub and I was responsible for many of the front-end features. I was particularly involved in developing both the map and media player, from deciding how they should function to implementing the code.</p>
-    <p>
+    <div id="image-slider" class="centered">
+        <ul class="bjqs">
+            <li><img src="articles/whereyouat/img/wya_0000.jpg"></li>
+            <li><img src="articles/whereyouat/img/wya_0001.jpg"></li>
+            <li><img src="articles/whereyouat/img/wya_0002.jpg"></li>
+            <li><img src="articles/whereyouat/img/wya_0003.jpg"></li>
+        </ul>
+    </div>
  </article>
+ <script type="text/javascript">
+ (function($){
+	console.log('Content Loaded - Where You At');
+	
+	// Get the css for the image slider
+	$('head').append('<link rel="stylesheet" href="css/bjqs.css">');
+	
+	$.getScript('js/jquery.bjqs-1.3.min.js',function(){
+		// Make the slider
+		$('#image-slider').bjqs({
+			height      : 585,
+			width       : 800,
+			showcontrols: false,
+			showmarkers : false
+		});
+	});
+	
+ })(jQuery);
+ </script>
 </body>
-</html>
+<!--</html>-->

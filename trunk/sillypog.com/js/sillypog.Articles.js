@@ -40,7 +40,16 @@ sillypog.Articles = (function($){
 				// Wrap the text around the circle
 				var circulator = new sillypog.Circulator();
 				$('p', stage).each(function(){
-					circulator.circulate($(this), $('.articleCircle'), true);
+					var $p = $(this),
+						$c = $('.articleCircle'),
+						ppos = $p.offset(),
+						cpos = $c.offset(),
+						cheight = $c.height();
+					if (ppos.top > cpos.top + cheight){
+						return false;
+					}
+					
+					circulator.circulate($p, $c, true);
 				});
 			}});
 		}
