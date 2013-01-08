@@ -292,8 +292,13 @@ footer{
 	-webkit-border-radius:100px;
 	border-radius:100px;
 	border-style:none;
+	
+	margin:-78px;	/* Centers the content around the 0,0 */
 }
 
+.portfolioCircle > img{
+	padding:29px;
+}
 #contents{
 	float:right;
 }

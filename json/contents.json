@@ -1,6 +1,8 @@
 {
   "articles" : [{"title":"Where You At", "url":"#!articles/whereyouat", "icon":"wya", "description":"Single-page ajax application for connecting people via live music."}, 
-  				{"title":"Eveo", "url":"#!articles/eveo", "icon":"campfire", "description":"Tile flipping showcase for the eveo website landing page."}, 
+  				{"title":"Eveo", "url":"#!articles/eveo", "icon":"campfire", "description":"Tile flipping showcase for the Eveo website landing page."}, 
 				{"title":"Campfire", "url":"#!articles/campfire", "icon":"campfire", "description":"Interactive sales data visualisation for the Symantec lobby."},
-				{"title":"Autofuss", "url":"#!articles/autofuss", "icon":"campfire", "description":"Augmented reality business cards."} ]
+				{"title":"Autofuss", "url":"#!articles/autofuss", "icon":"campfire", "description":"Augmented reality business cards."},
+				{"title":"Jabra", "url":"#!articles/jabra", "icon":"campfire", "description":"Semi-random Las Vegas slot machine."},
+				{"title":"Warhawk", "url":"#!articles/warhawk", "icon":"campfire", "description":"Socially-distributed Playstation leaderboard widget"} ]
 }
