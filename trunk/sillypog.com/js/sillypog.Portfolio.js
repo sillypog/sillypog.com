@@ -14,6 +14,8 @@ sillypog.Portfolio = (function($){
 	var circles = [];
 	var circleSizeInfo;
 	
+	var physicsTimer;
+	
 	//----------
 	// Constructor
 	//----------
@@ -80,6 +82,8 @@ sillypog.Portfolio = (function($){
 		}
 		// Process the icons
 		$('[svg-src]').loadSVG();
+		// Start the physics updating
+		physicsTimer = setInterval(updatePhysics, 1000 / 60);
 	}
 	
 	//----------
@@ -103,29 +107,37 @@ sillypog.Portfolio = (function($){
 	}
 	
 	var createCircle = function(data, index, stageSizeInfo){
-		if (!circleSizeInfo){
-			circleSizeInfo = {};
-			var fakeCircle = $('<div class="portfolioCircle" />').appendTo(stage);
-			circleSizeInfo.width = fakeCircle.width();
+		
 			
-			// Get the central position we're going to be creating circles at
-			circleSizeInfo.left = (stage.width() / 2) - (circleSizeInfo.width / 2);
-			circleSizeInfo.top = ($('.area', stage).height() / 2) - (circleSizeInfo.width / 2);
-			
+		/*var fakeCircle = $('<a href="'+data.url+'"><div class="portfolioCircle"><img svg-src="'+data.icon+'" /></div></a>').appendTo($('#contents',stage)),
+			radius = fakeCircle.width() / 2;
 			fakeCircle.remove();
-		}
 		
-		var circle = $('<li class="movable"><a href="'+data.url+'"><div class="portfolioCircle"><img svg-src="'+data.icon+'" /></div></a></li>').css({left:circleSizeInfo.left, top:circleSizeInfo.top}).appendTo($('#contents',stage));
+		console.log(radius);*/
+		// Create the innerElement so we can accurately measure the radius before we put it together with the link and anchor elements. jQuery won't measure correctly with the anchor present.
+		var segmentRadians = (Math.PI * 2) / 6,
+			direction = new sillypog.geom.Vector(),
+			area = $('.area', stage),
+			innerElement$ = $('<div class="portfolioCircle"><img svg-src="'+data.icon+'" /></div>').appendTo($('#contents',stage)),
+			radius = innerElement$.width() / 2,
+			boundRectangle = new sillypog.geom.Rectangle(radius, radius, area.width()-radius, area.height()-radius),
+			outerElement$ = $('<li class="movable"><a href="'+data.url+'" /></li>').appendTo($('#contents',stage));
 		
-		circle.on('mouseenter', function(){
+		$('a',outerElement$).append(innerElement$);	// Merge the 2 pieces together
+		outerElement$.on('mouseenter', function(){
 			TweenLite.to($('#description',stage).text(data.description),0.25,{css:{alpha:1}});
 		});
-		circle.on('mouseleave', function(){
+		outerElement$.on('mouseleave', function(){
 			TweenLite.to($('#description',stage),0.25,{css:{alpha:0}});
 		});
 		
-		// For now I'll use Tween but I think I'd rather just apply a vector and let them start moving. Then I can adjust the vectors based on whatever forces I want to apply
-		TweenLite.to(circle, 0.5, {css:{top:Math.random() * (stageSizeInfo.height-circleSizeInfo.width), left:Math.random() * (stageSizeInfo.width-circleSizeInfo.width), alpha:0.8}, delay:index*0.2});
+		var circle = new sillypog.display.Circle(area.width()*0.5, area.height()*0.5, outerElement$);
+		circle.physics.setBounds(boundRectangle);
+		circle.physics.mass = 10;
+			
+		direction.rotate(segmentRadians * index);
+		direction.scale(40);
+		circle.physics.applyForce(direction);
 		
 		return circle;
 	}
@@ -134,6 +146,23 @@ sillypog.Portfolio = (function($){
 		stage.addClass('hidden');
 		// Let the manager know that this page is now hidden. Include the position of the big circle in the event information.
 		$(instance).trigger(sillypog.events.OUTRO_COMPLETE);
+	}
+	
+	function updatePhysics(){
+		var stopPhysics = true;
+		for (var i=0, l=circles.length; i<l; i++){
+			var circle = circles[i];
+			var friction = circle.physics.calculateFriction(0.5);
+			circle.physics.applyForce(friction);
+			circle.update();
+			if (circle.physics.velocity.mag() > 0){
+				stopPhysics = false;
+			}
+		}
+		if (stopPhysics){
+			clearInterval(physicsTimer);
+		}
+		console.log('update');
 	}
 	
 	// Export
