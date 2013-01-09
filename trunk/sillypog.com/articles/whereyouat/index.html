@@ -11,7 +11,7 @@
  	<h1>Where You At</h1>
     <h3><a href="http://whereyouat.loomisdev.com">http://whereyouat.loomisdev.com</a></h3>
     <p>Where You At is a web application that connects your social network with live music events in your area. By logging in with your Facebook account, you are able to tell which events your friends plan to attend. Event searches can be filtered according to your musical preferences, as well as social factors calculated from aggregate user data.</p>
-    <p>Loomis Group designed and built the site for StubHub and I was responsible for many of the front-end features. I was particularly involved in developing both the map and media player, from deciding how they should function to implementing the code.</p>
+    <p>Loomis Group designed and built the site for StubHub and I was responsible for many of the front-end features. I was particularly involved in developing both the map and media player, from deciding how they should function to implementing the code. The site is currently being beta tested internally at StubHub.</p>
     <div id="image-slider" class="centered">
         <ul class="bjqs">
             <li><img src="articles/whereyouat/img/wya_0000.jpg"></li>
@@ -20,6 +20,10 @@
             <li><img src="articles/whereyouat/img/wya_0003.jpg"></li>
         </ul>
     </div>
+    <p>The front end uses a custom javascript MVC framework similar to Backbone, itself the single view of a CakePHP application. CakePHP passes data to the application from both the MongoDB instance and by proxying calls to external services. Those services include Facebook to manage logins and provide a social connectivity graph, Hunch to suggest similar artists based on what the user likes, and Zvents to provide the event data. Data from the services and the persistance layer are merged in the CakePHP application, creating a unique new service which allows event searches to be filtered by a variety of demographic factors.</p>
+    <p>The application provides a number of views and controls for interacting with the data. Events can be shown as a list, calendar, or map. An earlier prototype of the application had focussed solely on the map view, showing the popularity of events as large or small circles. That implementation was difficult to use on touch screen devices due to both the large number of circles and their irregular sizes. I used the popular <a href="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/">MarkerClusterer</a> library for Google Maps to reduce the number of markers, and by modifying it to separate cluster generation from rendering, I was able to use colour to show popularity independent of the number of events in the cluster. A small icon overlay indicates if friends are attending events in that cluster, providing an entry point for drilling down.</p>
+    <p>A consequence of showing markers as clusters is that one cluster may contain one venue with one event, one venue with multiple events, or multiple venues with any number of events. The appropriate jQuery template is chosen for each case; one which presents either a single event, or a scrollable list for multiple events. For clusters with multiple venues, I chose to use the <a href="http://twitter.github.com/bootstrap/">Bootstrap</a> collapse mechanism to separate each venue's events into a separate scrollable list within an accordion. </p>    
+    </p>
  </article>
  <script type="text/javascript">
  (function($){
