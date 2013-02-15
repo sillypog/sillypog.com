@@ -341,12 +341,12 @@ body > footer{
 
 #linksList{
 	/*max-width:600px;*/ /* Can change the shape here */
-	margin:auto;
+	margin:100px auto;
 	padding:0;
 }
 #linksList > li{
 	display:inline-block;
-	padding:20px
+	padding:80px
 }
 
 
