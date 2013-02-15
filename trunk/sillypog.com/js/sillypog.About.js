@@ -31,6 +31,8 @@ sillypog.About = (function($){
 	}
 	
 	About.prototype.intro = function(){
+		$('#aboutText > p', stage).removeInlineStyle('opacity');
+		$('#about header > *').removeInlineStyle('opacity');
 		this.show();
 	}
 	
