@@ -8,8 +8,8 @@ sillypog.Portfolio = (function($){
 	var instance;	// Allow private properties to call public methods
 	var stage;	// jQuery object of the DOM element
 	
-	var contents;
-	var showOnReady;
+	var contentModel;
+	var showOnContents = false;
 	
 	var circles = [];
 	var circleSizeInfo;
@@ -19,29 +19,35 @@ sillypog.Portfolio = (function($){
 	//----------
 	// Constructor
 	//----------
-	var Portfolio = function($stage){
+	var Portfolio = function($stage, _contentModel){
 		instance = this;
 		stage = $stage;
+		contentModel = _contentModel;
 	};
 	
 	//----------
 	// Public methods
 	//----------
-	
-	
 	/**
 	* Params contains the bigCirclePosition we need to line up with
 	*/
 	Portfolio.prototype.intro = function(params){
-		stage.removeClass('hidden');
+		console.log('Portfolio.intro');
 		
-		// Start loading portfolio contents
-		if (!contents){
-			loadContents();
+		// Params are only there if we came from the about page at this point
+		if (!params){
+			this.show();
+			return;
 		}
 		
+		// Apply an instance of the placeholder template
+		$.tmpl(sillypog.templates.PORTFOLIO_INTRO_PLACEHOLDER, {}).appendTo(stage);
+		$('[svg-src]',stage).loadSVG();
+		
+		stage.removeClass('hidden');
+		
 		// Match circle positions to what we've been passed
-		/*var $bigCircle = $('.bigCircle', stage).offset(params.bigCirclePosition);
+		var $bigCircle = $('.bigCircle', stage).offset(params.bigCirclePosition);
 		$('[id^="pc"]', stage).each(function(index){
 			$(this).offset(params.smallCirclePositions[index]);
 		});
@@ -53,8 +59,7 @@ sillypog.Portfolio = (function($){
 		TweenLite.to($bigCircle, 0.5, {css:{width:finalWidth, height:finalWidth, borderRadius:finalWidth, left:finalLeft, top:finalTop, backgroundColor:"rgba(153,51,102,1)"}});
 		TweenLite.to($('#pc1',stage), 0.5, {css:{width:finalWidth, height:finalWidth, left:finalLeft, top:finalTop}, delay:0.1});
 		TweenLite.to($('#pc2',stage), 0.5, {css:{width:finalWidth, height:finalWidth, left:finalLeft, top:finalTop}, delay:0.2});
-		TweenLite.to($('#pc3',stage), 0.5, {css:{left:finalLeft, top:finalTop}, delay:0.3, onComplete:function(){$('[id^="pc"]',stage).remove(); instance.show()}}); */
-		this.show();
+		TweenLite.to($('#pc3',stage), 0.5, {css:{left:finalLeft, top:finalTop}, delay:0.3, onComplete:function(){instance.show()}}); 
 	}
 	
 	Portfolio.prototype.outro = function(){
@@ -63,19 +68,23 @@ sillypog.Portfolio = (function($){
 	
 	Portfolio.prototype.show = function(){
 		console.log('Portfolio.show');
-		if (!contents){
-			console.log('Portfolio.show waiting for load');
-			showOnReady = true;
-			return;
-		} 
 		
-		console.log('Building out',contents.length,'links');
+		// If the contentModel data is ready, we can show.
+		// Otherwise, wait until it is
+		if (!contentModel.ready){
+			showOnContents = true;
+			return;
+		}
+		
+		var contents = contentModel.next(6);
+		
+		// Clear the stage
+		$('.movable', stage).remove();
+		stage.removeClass('hidden');
 		
 		// Get stage dimensions
 		var stageSizeInfo = {width:stage.width(), height:$('.area',stage).height()};
 		
-		// Clear the stage
-		$('.movable', stage).remove();
 		// Create circle representations and pop them out from the center
 		for (var i=0, l=contents.length; i < l; i++){
 			circles[i] = createCircle(contents[i], i, stageSizeInfo);
@@ -86,25 +95,17 @@ sillypog.Portfolio = (function($){
 		physicsTimer = setInterval(updatePhysics, 1000 / 60);
 	}
 	
-	//----------
-	// Private methods
-	//----------
-	var loadContents = function loadContents(){
-		console.log('Portfolio.loadContents');
-		$.getJSON('json/contents.json', function(data){
-			
-			contents = data.articles;
-			onContentsLoaded();
-		});
-	}
-	
-	var onContentsLoaded = function onContentsLoaded(){
-		// Dispatch event? // Resolve deferred?
-		console.log('Contents loaded', contents);
-		if (showOnReady){
+	Portfolio.prototype.contentsLoaded = function(e){
+		if (showOnContents){
+			showOnContents = false;
 			instance.show();
 		}
 	}
+	
+	//----------
+	// Private methods
+	//----------
+	
 	
 	var createCircle = function(data, index, stageSizeInfo){
 		
@@ -143,7 +144,9 @@ sillypog.Portfolio = (function($){
 	}
 	
 	function outroComplete(){
+		// Remove any added elements
 		stage.addClass('hidden');
+		$('.movable', stage).remove();
 		// Let the manager know that this page is now hidden. Include the position of the big circle in the event information.
 		$(instance).trigger(sillypog.events.OUTRO_COMPLETE);
 	}

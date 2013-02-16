@@ -3,7 +3,8 @@ var sillypog = sillypog || {};
 sillypog.templates = {};
 
 sillypog.events = {
-	OUTRO_COMPLETE : 'OutroComplete'
+	OUTRO_COMPLETE : 'OutroComplete',
+	CONTENTS_LOADED: 'ContentsLoaded'
 };
 
 (function($, templates){
@@ -11,9 +12,8 @@ sillypog.events = {
 	
 	console.log("Sillypog:*");
 	
+	var contentModel;
 	var viewManager;
-	var portfolio;
-	var links;
 	
 	/**
 	* Document ready function
@@ -22,15 +22,25 @@ sillypog.events = {
 		// Compile templates
 		$('[type="text/x-jQuery-tmpl"]').compileTemplates(templates);
 		
+		contentModel = new sillypog.ContentModel();
+		
 		var pages = {
 			'none'		: new sillypog.NoView(),
 			'' 			: new sillypog.About($('#about')),
-			'portfolio' : new sillypog.Portfolio($('#portfolio')),
+			'portfolio' : new sillypog.Portfolio($('#portfolio'), contentModel),
 			'links'		: new sillypog.Links($('#links'), $('#contact')),
 			'articles'	: new sillypog.Articles($('#articles'))
 		};
 		
 		viewManager = new sillypog.ViewManager(pages);
+		
+		// Load contents
+		$(contentModel).bind(sillypog.events.CONTENTS_LOADED, pages.portfolio.contentsLoaded);
+		contentModel.load();
 	});
+	
+	function contentsLoaded(e){
+		console.log('contentsLoaded');
+	}
 	
 }(jQuery, sillypog.templates));

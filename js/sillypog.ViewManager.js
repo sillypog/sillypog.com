@@ -31,13 +31,20 @@ sillypog.ViewManager = (function($){
 		}
 		
 		$(window).on('hashchange', onHashChange);
-		onHashChange();
+		//onHashChange();
+		init();
 	};
 	
 	
 	//----------
 	// Private methods
 	//----------
+	function init(){
+		var path = parseURL();
+		currentPage = path.page;
+		pages[currentPage].show();
+	}
+	
 	function onHashChange(e){
 		console.log('ViewManager.onHashChange',e);
 		

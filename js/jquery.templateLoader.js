@@ -8,8 +8,11 @@
 	}
 }(function ($) {
 	$.fn.compileTemplates = function(ns){
-		var id = this.attr('id');
-		ns[id.toUpperCase()] = id;
-		$.template(id, this.remove().html());
+		return this.each(function(){
+			var t = $(this),
+				id = t.attr('id');
+			ns[id.toUpperCase()] = id;
+			$.template(id, t.remove().html());
+		});
 	}; // Would be called as $('[type="x-jQuery-tmpl"]').compileTemplates(namespace);
 }));
