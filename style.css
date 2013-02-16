@@ -261,6 +261,10 @@ body > footer{
 	margin:0px 0px 24px 0px;	/* Helps to align the top with the beginning of the flow divs but also ensures there's a line break between paragraphs. */
 }
 
+#aboutText p:last-child{
+	width:525px;
+}
+
 #aboutLinks{
 	position:absolute;
 	bottom:0px;
@@ -270,6 +274,19 @@ body > footer{
 #aboutLinks img{
 	margin-left:75px;
 }
+
+@media (max-width: 1024px) { 
+	p{ font-size:14px; }
+	
+	.bigCircle{ height:300px; width:300px; -moz-border-radius:300px; -webkit-border-radius:300px; border-radius:300px; }
+	
+	#about header h1{ padding-top:120px; }
+	#about header h1, #about header h2{ font-size:24px; line-height:24px; }
+	#aboutFloated{ height:300px; width:900px; }
+	#aboutFloater{ margin-bottom:-150px;}
+	#aboutText{	margin-top:55px; width:550px; }
+	#aboutText p:last-child{ width:455px; }
+	#aboutLinks img { margin-left: 55px; -webkit-transform-origin: bottom right; -webkit-transform:scale(0.8,0.8); }
 
 
 /*-----------------
