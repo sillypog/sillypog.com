@@ -286,7 +286,20 @@ body > footer{
 	#aboutFloater{ margin-bottom:-150px;}
 	#aboutText{	margin-top:55px; width:550px; }
 	#aboutText p:last-child{ width:455px; }
-	#aboutLinks img { margin-left: 55px; -webkit-transform-origin: bottom right; -webkit-transform:scale(0.8,0.8); }
+	#aboutLinks img { margin-left: 55px; 
+		transform-origin: bottom right;
+		-moz-transform-origin: bottom right;
+		-ms-transform-origin: bottom right;
+		-o-transform-origin: bottom right;
+		-webkit-transform-origin: bottom right; 
+		 
+		transform:scale(0.8,0.8);
+		-moz-transform:scale(0.8,0.8);
+		-ms-transform:scale(0.8,0.8);
+		-o-transform:scale(0.8,0.8);
+		-webkit-transform:scale(0.8,0.8);
+	}
+}
 
 
 /*-----------------
