@@ -22,6 +22,7 @@
 <script type="text/javascript" src="js/greensock/TweenLite.min.js"></script>
 <script type="text/javascript" src="js/sillypog.Circulator.js"></script>
 <script type="text/javascript" src="js/sillypog.Physics.js"></script>
+<script type="text/javascript" src="js/sillypog.ContentModel.js"></script>
 <script type="text/javascript" src="js/sillypog.ViewManager.js"></script>
 <script type="text/javascript" src="js/sillypog.NoView.js"></script>
 <script type="text/javascript" src="js/sillypog.About.js"></script>
@@ -37,10 +38,15 @@
 		<div class="link-${icon}"></div>
 	</div>
 </script>
+<script type="text/x-jQuery-tmpl" id="portfolio_intro_placeholder">
+	<div class="bigCircle movable"></div>
+	<img id="pc1" class="movable" svg-src="twitterT" />
+	<img id="pc2" class="movable" svg-src="acrobatA" />
+	<img id="pc3" class="movable" svg-src="exitAbout"/>
+</script>
 </head>
 
 <body>
-
 <header>
 	<div class="paleWhiteBG"></div>
     <h1>
@@ -74,10 +80,6 @@
     	<div class="area"></div>
         <ul id="contents" class="plainList"></ul>
         <div id="description"></div>
-    	<div class="bigCircle movable"></div>
-    	<img id="pc1" class="movable" svg-src="twitterT" />
-        <img id="pc2" class="movable" svg-src="acrobatA" />
-        <img id="pc3" class="movable" svg-src="exitAbout"/>
     </section>
     <section id="links" class="hidden">
     	<div class="area hidden"></div><!-- Hide the area when the list is not composed of movable elements -->

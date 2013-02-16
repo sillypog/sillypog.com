@@ -77,7 +77,7 @@ a img{
 
 .movable{
 	position:absolute;
-	height:1px;	/* Necessary for older versions of Safari */
+	/*height:1px;*/	/* Necessary for older versions of Safari */
 }
 
 .plainList{

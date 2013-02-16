@@ -38,11 +38,10 @@ sillypog.About = (function($){
 	
 	About.prototype.outro = function(){
 		// Fade the text out and just leave the bubbles
-		/*$('#aboutText>p', stage).each(function(index){
+		$('#aboutText>p', stage).each(function(index){
 			TweenLite.to($(this), 0.5, {css:{alpha:0}, ease:Quint.easeIn, delay:0.25 * index});
 		});
-		TweenLite.to($('#about header > *'), 1, {css:{alpha:0}, ease:Quint.easeIn, onComplete:outroComplete});*/
-		outroComplete();
+		TweenLite.to($('#about header > *'), 1, {css:{alpha:0}, ease:Quint.easeIn, onComplete:outroComplete});
 	}
 	
 	/**
