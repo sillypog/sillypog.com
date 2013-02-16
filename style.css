@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 html{
 	width:100%;
 	height:100%;
@@ -77,7 +79,6 @@ a img{
 
 .movable{
 	position:absolute;
-	/*height:1px;*/	/* Necessary for older versions of Safari */
 }
 
 .plainList{
@@ -304,6 +305,9 @@ body > footer{
 }
 #contents{
 	float:right;
+}
+li.contentItem{
+	height:1px;
 }
 
 

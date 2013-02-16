@@ -122,7 +122,7 @@ sillypog.Portfolio = (function($){
 			innerElement$ = $('<div class="portfolioCircle"><img svg-src="'+data.icon+'" /></div>').appendTo($('#contents',stage)),
 			radius = innerElement$.width() / 2,
 			boundRectangle = new sillypog.geom.Rectangle(radius, radius, area.width()-radius, area.height()-radius),
-			outerElement$ = $('<li class="movable"><a href="'+data.url+'" /></li>').appendTo($('#contents',stage));
+			outerElement$ = $('<li class="movable contentItem"><a href="'+data.url+'" /></li>').appendTo($('#contents',stage));
 		
 		$('a',outerElement$).append(innerElement$);	// Merge the 2 pieces together
 		outerElement$.on('mouseenter', function(){
