@@ -36,6 +36,7 @@ sillypog.events = {
 		
 		// Load contents
 		$(contentModel).bind(sillypog.events.CONTENTS_LOADED, pages.portfolio.contentsLoaded);
+		//$(contentModel).bind(sillypog.events.CONTENTS_LOADED, pages.articles.contentsLoaded);
 		contentModel.load();
 	});
 	

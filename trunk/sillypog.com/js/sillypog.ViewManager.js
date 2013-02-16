@@ -43,6 +43,10 @@ sillypog.ViewManager = (function($){
 		var path = parseURL();
 		currentPage = path.page;
 		pages[currentPage].show();
+		if (path.subpage && pages[currentPage].changeSubpage){
+			pages[currentPage].changeSubpage(path.subpage);
+			currentSubpage = path.subpage;
+		}
 	}
 	
 	function onHashChange(e){
