@@ -2,39 +2,45 @@ var sillypog = sillypog || {};
 sillypog.ContentModel = (function($){
 	'use strict';
 	
-	var instance;
+	var instance = this;
 	var contents;
 	var index = 0;
+	var _ready = false;
 	
-	var ContentModel = function(){
-		console.log('ContentModel: Constructor');
-		instance = this;
-		
-		this.ready = false;
+	function ready(){
+		return _ready;
 	}
 	
-	ContentModel.prototype.load = function(){
-		console.log('ContentModel.loadContents');
+	function load(){
+		console.log('ContentModel.load');
 		$.getJSON('json/contents.json', function(data){
 			contents = data.articles;
 			onContentsLoaded();
 		});
 	}
 	
-	ContentModel.prototype.next = function(n){
+	function next(n){
 		return contents.slice(index,n);
 		index+=n;
 	}
 	
-	var onContentsLoaded = function onContentsLoaded(){
+	//----------
+	// Private
+	//----------
+	
+	function onContentsLoaded(){
 		// Dispatch event? // Resolve deferred?
 		console.log('Contents loaded', contents);
 		
-		instance.ready = true;
-		$(instance).trigger(sillypog.events.CONTENTS_LOADED);
+		_ready = true;
+		$(window).trigger(sillypog.events.CONTENTS_LOADED);
 	}
 	
 	// Export
-	return ContentModel;
+	return {
+		ready:ready,
+		load:load,
+		next:next
+	};
 	
 })(jQuery);

@@ -71,7 +71,7 @@ sillypog.Portfolio = (function($){
 		
 		// If the contentModel data is ready, we can show.
 		// Otherwise, wait until it is
-		if (!contentModel.ready){
+		if (!contentModel.ready()){
 			showOnContents = true;
 			return;
 		}

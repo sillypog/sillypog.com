@@ -10,6 +10,8 @@ sillypog.events = {
 (function($, templates){
 	'use strict';
 	
+	// Avoid potential issues with console calls on IE
+	if (!window.console) console = {log: function() {}}; 
 	console.log("Sillypog:*");
 	
 	var contentModel;
@@ -22,21 +24,19 @@ sillypog.events = {
 		// Compile templates
 		$('[type="text/x-jQuery-tmpl"]').compileTemplates(templates);
 		
-		contentModel = new sillypog.ContentModel();
-		
 		var pages = {
-			'none'		: new sillypog.NoView(),
+			none		: new sillypog.NoView(),
 			'' 			: new sillypog.About($('#about')),
-			'portfolio' : new sillypog.Portfolio($('#portfolio'), contentModel),
-			'links'		: new sillypog.Links($('#links'), $('#contact')),
-			'articles'	: new sillypog.Articles($('#articles'))
+			portfolio 	: new sillypog.Portfolio($('#portfolio'), sillypog.ContentModel),
+			links		: new sillypog.Links($('#links'), $('#contact')),
+			articles	: new sillypog.Articles($('#articles'))
 		};
 		
 		viewManager = new sillypog.ViewManager(pages);
 		
 		// Load contents
-		$(contentModel).bind(sillypog.events.CONTENTS_LOADED, pages.portfolio.contentsLoaded);
-		contentModel.load();
+		$(window).bind(sillypog.events.CONTENTS_LOADED, pages.portfolio.contentsLoaded);
+		sillypog.ContentModel.load();
 	});
 	
 	function contentsLoaded(e){
