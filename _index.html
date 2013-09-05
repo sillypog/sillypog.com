@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html>
-
-<head>
+<html><head>
 <meta charset="UTF-8">
 <title>Sillypog:* - Peter Hastie, Interactive Developer</title>
 <link rel="shortcut icon" href="favicon.ico" />
@@ -11,6 +9,8 @@
 <!-- Add Modernizr in head but after CSS -->
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+
+<!-- @if NODE_ENV == 'DEVELOPMENT' -->
 <script type="text/javascript" src="js/modernizr.custom.97400.js"></script>
 <script type="text/javascript" src="js/jquery.loadSVG.js"></script>
 <script type="text/javascript" src="js/jquery.ba-bbq.min.js"></script>
@@ -31,6 +31,11 @@
 <script type="text/javascript" src="js/sillypog.Links.js"></script>
 <script type="text/javascript" src="js/sillypog.Articles.js"></script>
 <script type="text/javascript" src="js/sillypog.js"></script>
+<!-- @endif -->
+
+<!-- @if NODE_ENV == 'PRODUCTION' -->
+<script type="text/javascript" src="build/sillypog.com.js"></script>
+<!-- @endif -->
 
 <!-- Templates -->
 <script type="text/x-jQuery-tmpl" id="link_template">
