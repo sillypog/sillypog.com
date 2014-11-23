@@ -1,7 +1,7 @@
 bower_components/jquery.bbq/jquery.ba-bbq.js
 bower_components/Lettering.js/jquery.lettering.js
 bower_components/jquery-tmpl/jquery.tmpl.js
-bower_components/jquery-tmpl-loader/dist/jquery.templ-loader.js
+bower_components/jquery-tmpl-loader/dist/jquery.tmpl-loader.js
 bower_components/greensock/src/uncompressed/plugins/CSSPlugin.js
 bower_components/greensock/src/uncompressed/easing/EasePack.js
 bower_components/greensock/src/uncompressed/TweenLite.js

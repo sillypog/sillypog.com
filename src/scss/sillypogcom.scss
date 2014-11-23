@@ -9,12 +9,12 @@ body{
 	width:100%;
 	height:100%;
 	margin:0px;
-	
+
 	background:-moz-radial-gradient(center, #f0f0f0, #cccccc) no-repeat #cccccc;
 	background:-webkit-gradient(radial, 50% 50%, 0, 50% 50%, 500, from(#f0f0f0), to(#cccccc)) no-repeat #cccccc;
 	background-attachment:fixed;
-	
-	
+
+
 	/* Global text properties */
 	color:#666666;
 	font-family:'Open Sans', Arial Black, Gadget, sans-serif;
@@ -95,7 +95,7 @@ a img{
 	height:100%;
 	background: #FFFFFF;
 	opacity:0.3;
-	filter:alpha(opacity=30);	
+	filter:alpha(opacity=30);
 }
 
 
@@ -107,7 +107,7 @@ header{
 	width:100%;
 	height:100px;
 	border-spacing:0px;
-	
+
 	border-bottom-color:#FFFFFF;
 	border-bottom-style:solid;
 	border-bottom-width:3px;
@@ -119,7 +119,7 @@ header h1{
 
 /* Technique copied from soulwire.co.uk */
 header h1 a{
-	background: url("svg/sillypog.svg") no-repeat scroll center center transparent;
+	background: url("/svg/sillypog.svg") no-repeat scroll center center transparent;
 	display: block;
 	text-indent: -999px; /* Text in anchor is only used for search? */
 	height: 100px;
@@ -130,7 +130,7 @@ header h1 a{
 
 /* IE doesn't handle SVG so use modernizr to use a png instead. Other properties are the same. */
 .no-svg header h1 a{
-	background: url("png/sillypog.png") no-repeat scroll center center transparent;
+	background: url("/png/sillypog.png") no-repeat scroll center center transparent;
 }
 
 
@@ -141,14 +141,14 @@ header h1 a{
 body > footer{
 	width:100%;
 	height:40px;
-		
+
 	border-top-color:#FFFFFF;
 	border-top-style:solid;
-	border-top-width:3px;	
-	
+	border-top-width:3px;
+
 	position:absolute;
 	bottom:0px;
-	
+
 	overflow:hidden; /* nav element will disappear if the page is too narrow. I prefer this to having it pop out of the div*/
 }
 
@@ -167,9 +167,9 @@ body > footer{
 #footerButtons p{
 	float:left;
 	margin:0px 0px 2px 50px;
-	
+
 	font-size:26px;
-	
+
 	-webkit-user-select: none;
 	-khtml-user-select: none;
 	-moz-user-select: none;
@@ -190,9 +190,9 @@ body > footer{
 #sections{
 	width:100%;
 	text-align:center; /* Has to be set so that IE will horizontally centre content */
-	
+
 	overflow-x:auto;
-	
+
 	position:absolute;
 	top:103px;	/* Accounts for header and border */
 	bottom:43px; /* Accounts for footer and border */
@@ -231,9 +231,9 @@ body > footer{
 	background:rgba(153,51,102,0.3);
 	height:460px;
 	width:460px;	/* Width and height are half the intended values */
-	
+
 	margin-right:20px;
-	
+
 	-moz-border-radius:460px;
 	-webkit-border-radius:460px;
 	border-radius:460px;
@@ -251,7 +251,7 @@ body > footer{
 	margin-top:0px;
 }
 
-#aboutText{	
+#aboutText{
 	margin-top:75px;
 	float:left;
 	width:600px;
@@ -275,24 +275,24 @@ body > footer{
 	margin-left:75px;
 }
 
-@media (max-width: 1024px) { 
+@media (max-width: 1024px) {
 	p{ font-size:14px; }
-	
+
 	.bigCircle{ height:300px; width:300px; -moz-border-radius:300px; -webkit-border-radius:300px; border-radius:300px; }
-	
+
 	#about header h1{ padding-top:120px; }
 	#about header h1, #about header h2{ font-size:24px; line-height:24px; }
 	#aboutFloated{ height:300px; width:900px; }
 	#aboutFloater{ margin-bottom:-150px;}
 	#aboutText{	margin-top:55px; width:550px; }
 	#aboutText p:last-child{ width:455px; }
-	#aboutLinks img { margin-left: 55px; 
+	#aboutLinks img { margin-left: 55px;
 		transform-origin: bottom right;
 		-moz-transform-origin: bottom right;
 		-ms-transform-origin: bottom right;
 		-o-transform-origin: bottom right;
-		-webkit-transform-origin: bottom right; 
-		 
+		-webkit-transform-origin: bottom right;
+
 		transform:scale(0.8,0.8);
 		-moz-transform:scale(0.8,0.8);
 		-ms-transform:scale(0.8,0.8);
@@ -308,7 +308,7 @@ body > footer{
 *-----------------*/
 #description{
 	float:left;
-	padding:20px;	
+	padding:20px;
 }
 
 .area{
@@ -321,12 +321,12 @@ body > footer{
 	background:rgb(153,51,102);
 	height:156px;
 	width:156px;	/* Width and height are half the intended values */
-	
+
 	-moz-border-radius:100px;
 	-webkit-border-radius:100px;
 	border-radius:100px;
 	border-style:none;
-	
+
 	margin:-78px;	/* Centers the content around the 0,0 */
 }
 
@@ -346,14 +346,14 @@ li.contentItem{
 *
 *-----------------*/
 .svg [class^="link-"], .inlinesvg [class^="link-"]{
-	background-image:url(svg/link-icons.svg);
+	background-image:url(/svg/link-icons.svg);
 	width:100px;
 	height:78px;
 	margin:auto;
 }
 
 .nosvg [class^="link-"]{
-	background:url(png/link-icons.png);
+	background:url(/png/link-icons.png);
 }
 
 .link-twitter{
@@ -408,14 +408,14 @@ article h1{
 	background:rgb(153,51,102);
 	height:200px;
 	width:200px;	/* Width and height are half the intended values */
-	
+
 	-moz-border-radius:200px;
 	-webkit-border-radius:200px;
 	border-radius:200px;
 	border-style:none;
-	
+
 	margin-right:20px;
-	
+
 	float:left;
 }
 
@@ -427,7 +427,7 @@ blockquote .quoteMark{
 	font-size:300%;
 	color: #993366;
 	float:left;
-	padding-right:5px;	
+	padding-right:5px;
 	font-family:"Times New Roman", Times, serif;
 }
 

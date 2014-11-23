@@ -10,17 +10,18 @@ var	debug = false,
 var fs = require("fs"),
 	child = require("child_process"),
 	path = require("path"),
-	archiver = require("archiver");
+	which = require('which').sync;
 
 var releaseVersion,
 	nextVersion,
+	finalFiles,
 	isBeta,
 	pkg,
-	branch,
 
 	scpURL = "jqadmin@code.origin.jquery.com:/var/www/html/code.jquery.com/",
 	cdnURL = "http://code.origin.jquery.com/",
-	repoURL = "git@github.com:jquery/jquery.git",
+	repoURL = "git://github.com/jquery/jquery.git",
+	branch = "master",
 
 	// Windows needs the .cmd version but will find the non-.cmd
 	// On Windows, ensure the HOME environment variable is set
@@ -28,31 +29,15 @@ var releaseVersion,
 
 	devFile = "dist/jquery.js",
 	minFile = "dist/jquery.min.js",
-	mapFile = "dist/jquery.min.map",
 
 	releaseFiles = {
 		"jquery-VER.js": devFile,
 		"jquery-VER.min.js": minFile,
-		"jquery-VER.min.map": mapFile //,
-// Disable these until 2.0 defeats 1.9 as the ONE TRUE JQUERY
-//		"jquery.js": devFile,
-//		"jquery.min.js": minFile,
-//		"jquery.min.map": mapFile,
-//		"jquery-latest.js": devFile,
-//		"jquery-latest.min.js": minFile,
-//		"jquery-latest.min.map": mapFile
-	},
-
-	jQueryFilesCDN = [],
-
-	googleFilesCDN = [
-		"jquery.js", "jquery.min.js", "jquery.min.map"
-	],
-
-	msFilesCDN = [
-		"jquery-VER.js", "jquery-VER.min.js", "jquery-VER.min.map"
-	];
-
+		"jquery.js": devFile,
+		"jquery-latest.js": devFile,
+		"jquery.min.js": minFile,
+		"jquery-latest.min.js": minFile
+	};
 
 steps(
 	initialize,
@@ -61,9 +46,7 @@ steps(
 	gruntBuild,
 	makeReleaseCopies,
 	setNextVersion,
-	copyTojQueryCDN,
-	buildGoogleCDN,
-	buildMicrosoftCDN,
+	uploadToCDN,
 	pushToGithub,
 	exit
 );
@@ -78,19 +61,19 @@ function initialize( next ) {
 
 	// First arg should be the version number being released
 	var newver, oldver,
-		rsemver = /^(\d+)\.(\d+)\.(\d+)(?:-([\dA-Za-z\-]+(?:\.[\dA-Za-z\-]+)*))?$/,
-		version = ( process.argv[3] || "" ).toLowerCase().match( rsemver ) || {},
+		rversion = /^(\d)\.(\d+)\.(\d)((?:a|b|rc)\d|pre)?$/,
+		version = ( process.argv[2] || "" ).toLowerCase().match( rversion ) || {},
 		major = version[1],
 		minor = version[2],
 		patch = version[3],
 		xbeta = version[4];
 
-	branch = process.argv[2];
-	releaseVersion = process.argv[3];
+
+	releaseVersion = process.argv[2];
 	isBeta = !!xbeta;
 
-	if ( !branch || !major || !minor || !patch ) {
-		die( "Usage: " + process.argv[1] + " branch releaseVersion" );
+	if ( !major || !minor || !patch ) {
+		die( "Usage: " + process.argv[1] + " releaseVersion" );
 	}
 	if ( xbeta === "pre" ) {
 		die( "Cannot release a 'pre' version!" );
@@ -101,118 +84,71 @@ function initialize( next ) {
 	pkg = JSON.parse( fs.readFileSync( "package.json" ) );
 
 	console.log( "Current version is " + pkg.version + "; generating release " + releaseVersion );
-	version = pkg.version.match( rsemver );
+	version = pkg.version.match( rversion );
 	oldver = ( +version[1] ) * 10000 + ( +version[2] * 100 ) + ( +version[3] )
 	newver = ( +major ) * 10000 + ( +minor * 100 ) + ( +patch );
 	if ( newver < oldver ) {
 		die( "Next version is older than current version!" );
 	}
 
-	nextVersion = major + "." + minor + "." + ( isBeta ? patch : +patch + 1 ) + "-pre";
+	nextVersion = major + "." + minor + "." + ( isBeta ? patch : +patch + 1 ) + "pre";
 	next();
 }
-
 function checkGitStatus( next ) {
-	git( [ "status" ], function( error, stdout, stderr ) {
-		var onBranch = ((stdout||"").match( /On branch (\S+)/ ) || [])[1];
-		if ( onBranch !== branch ) {
-			dieIfReal( "Branches don't match: Wanted " + branch + ", got " + onBranch );
-		}
+	exec( "git status", function( error, stdout, stderr ) {
 		if ( /Changes to be committed/i.test( stdout ) ) {
-			dieIfReal( "Please commit changed files before attemping to push a release." );
+			die( "Please commit changed files before attemping to push a release." );
 		}
 		if ( /Changes not staged for commit/i.test( stdout ) ) {
-			dieIfReal( "Please stash files before attempting to push a release." );
+			die( "Please stash files before attempting to push a release." );
 		}
 		next();
 	});
 }
-
 function tagReleaseVersion( next ) {
 	updatePackageVersion( releaseVersion );
-	git( [ "commit", "-a", "-m", "Tagging the " + releaseVersion + " release." ], function(){
-		git( [ "tag", releaseVersion ], next, debug);
-	}, debug);
+	exec( 'git commit -a -m "Tagging the ' + releaseVersion + ' release."', function(){
+		exec( "git tag " + releaseVersion, next);
+	});
 }
-
 function gruntBuild( next ) {
-	exec( gruntCmd, [], function( error, stdout ) {
-		if ( error ) {
-			die( error + stderr );
-		}
-		console.log( stdout );
-		next();
-	}, false );
+	exec( gruntCmd, next );
 }
-
 function makeReleaseCopies( next ) {
+	finalFiles = {};
 	Object.keys( releaseFiles ).forEach(function( key ) {
-		var text,
-			builtFile = releaseFiles[ key ],
-			unpathedFile = key.replace( /VER/g, releaseVersion ),
-			releaseFile = "dist/" + unpathedFile;
+		var builtFile = releaseFiles[ key ],
+			releaseFile = key.replace( /VER/g, releaseVersion );
 
 		// Beta releases don't update the jquery-latest etc. copies
-		if ( !isBeta || key.indexOf( "VER" ) >= 0 ) {
-
-			if ( /\.map$/.test( releaseFile ) ) {
-				// Map files need to reference the new uncompressed name;
-				// assume that all files reside in the same directory.
-				// "file":"jquery.min.js","sources":["jquery.js"]
-				text = fs.readFileSync( builtFile, "utf8" )
-					.replace( /"file":"([^"]+)","sources":\["([^"]+)"\]/,
-						"\"file\":\"" + unpathedFile.replace( /\.min\.map/, ".min.js" ) +
-						"\",\"sources\":[\"" + unpathedFile.replace( /\.min\.map/, ".js" ) + "\"]" );
-				fs.writeFileSync( releaseFile, text );
-			} else if ( /\.min\.js$/.test( releaseFile ) ) {
-				// Minified files point back to the corresponding map;
-				// again assume one big happy directory.
-				// "//@ sourceMappingURL=jquery.min.map"
-				text = fs.readFileSync( builtFile, "utf8" )
-					.replace( /\/\/@ sourceMappingURL=\S+/,
-						"//@ sourceMappingURL=" + unpathedFile.replace( /\.js$/, ".map" ) );
-				fs.writeFileSync( releaseFile, text );
-			} else if ( builtFile !== releaseFile ) {
-				copy( builtFile, releaseFile );
-			}
-
-			jQueryFilesCDN.push( releaseFile );
+		if ( !isBeta || key !== releaseFile ) {
+			copy( builtFile, releaseFile );
+			finalFiles[ releaseFile ] = builtFile;
 		}
 	});
 	next();
 }
-
 function setNextVersion( next ) {
 	updatePackageVersion( nextVersion );
-	git( [ "commit", "-a", "-m", "Updating the source version to " + nextVersion + "✓™" ], next, debug );
+	exec( 'git commit -a -m "Updating the source version to ' + nextVersion + '"', next );
 }
-
-function copyTojQueryCDN( next ) {
+function uploadToCDN( next ) {
 	var cmds = [];
 
-	jQueryFilesCDN.forEach(function( name ) {
-		cmds.push(function( nxt ){
-			exec( "scp", [ name, scpURL ], nxt, debug || skipRemote );
+	Object.keys( finalFiles ).forEach(function( name ) {
+		cmds.push(function( x ){
+			exec( "scp " + name + " " + scpURL, x, skipRemote );
 		});
-		cmds.push(function( nxt ){
-			exec( "curl", [ cdnURL + name + "?reload" ], nxt, debug || skipRemote );
+		cmds.push(function( x ){
+			exec( "curl '" + cdnURL + name + "?reload'", x, skipRemote );
 		});
 	});
 	cmds.push( next );
-
+	
 	steps.apply( this, cmds );
 }
-
-function buildGoogleCDN( next ) {
-	makeArchive( "googlecdn", googleFilesCDN, next );
-}
-
-function buildMicrosoftCDN( next ) {
-	makeArchive( "mscdn", msFilesCDN, next );
-}
-
 function pushToGithub( next ) {
-	git( [ "push", "--tags", repoURL, branch ], next, debug || skipRemote );
+	exec("git push --tags "+ repoURL + " " + branch, next, skipRemote );
 }
 
 //==============================
@@ -221,12 +157,10 @@ function steps() {
 	var cur = 0,
 		steps = arguments;
 	(function next(){
-		process.nextTick(function(){
-			steps[ cur++ ]( next );
-		});
+		var step = steps[ cur++ ];
+		step( next );
 	})();
 }
-
 function updatePackageVersion( ver ) {
 	console.log( "Updating package.json version to " + ver );
 	pkg.version = ver;
@@ -234,84 +168,30 @@ function updatePackageVersion( ver ) {
 		fs.writeFileSync( "package.json", JSON.stringify( pkg, null, "\t" ) + "\n" );
 	}
 }
-
-function makeArchive( cdn, files, fn ) {
-	if ( isBeta ) {
-		console.log( "Skipping archive creation for " + cdn + "; " + releaseVersion + " is beta" );
-		process.nextTick( fn );
-		return;
-	}
-
-	console.log( "Creating production archive for " + cdn );
-
-	var archive = archiver( "zip" ),
-		md5file = "dist/" + cdn + "-md5.txt",
-		output = fs.createWriteStream( "dist/" + cdn + "-jquery-" + releaseVersion + ".zip" );
-
-	archive.on( "error", function( err ) {
-		throw err;
-	});
-
-	output.on( "close", fn );
-	archive.pipe( output );
-
-	files = files.map(function( item ) {
-		return "dist/" + item.replace( /VER/g, releaseVersion );
-	});
-
-	exec( "md5sum", files, function( err, stdout, stderr ) {
-		fs.writeFileSync( md5file, stdout );
-		files.push( md5file );
-
-		files.forEach(function( file ) {
-			archive.append( fs.createReadStream( file ), { name: file } );
-		});
-
-		archive.finalize();
-	}, false );
-}
-
-function copy( oldFile, newFile, skip ) {
+function copy( oldFile, newFile ) {
 	console.log( "Copying " + oldFile + " to " + newFile );
-	if ( !skip ) {
+	if ( !debug ) {
 		fs.writeFileSync( newFile, fs.readFileSync( oldFile, "utf8" ) );
 	}
 }
-
-function git( args, fn, skip ) {
-	exec( "git", args, fn, skip );
-}
-
-function exec( cmd, args, fn, skip ) {
-	if ( skip ) {
-		console.log( "# " + cmd + " " + args.join(" ") );
-		fn( "", "", "" );
+function exec( cmd, fn, skip ) {
+	if ( debug || skip ) {
+		console.log( "# " + cmd );
+		fn();
 	} else {
-		console.log( cmd + " " + args.join(" ") );
-		child.execFile( cmd, args, { env: process.env },
-			function( err, stdout, stderr ) {
-				if ( err ) {
-					die( stderr || stdout || err );
-				}
-				fn.apply( this, arguments );
+		console.log( cmd );
+		child.exec( cmd, { env: process.env }, function( err, stdout, stderr ) {
+			if ( err ) {
+				die( stderr || stdout || err );
 			}
-		);
+			fn();
+		});
 	}
 }
-
 function die( msg ) {
 	console.error( "ERROR: " + msg );
 	process.exit( 1 );
 }
-
-function dieIfReal( msg ) {
-	if ( debug ) {
-		console.log ( "DIE: " + msg );
-	} else {
-		die( msg );
-	}
-}
-
 function exit() {
 	process.exit( 0 );
 }
