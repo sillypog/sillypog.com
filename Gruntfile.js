@@ -58,18 +58,22 @@ module.exports = function(grunt){
 					hostname: '',
 					base: 'build'
 				}
-			} 
+			}
 		}
 	});
 
 	// load all grunt tasks
 	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
+	grunt.registerTask('set_config', 'Set a config property.', function(name, val) {
+		grunt.config.set(name, val);
+	});
+
 	// Default task(s).
 	grunt.registerTask('common', ['sass', 'asset_packager', 'copy:main']);
 
-	grunt.registerTask('dev', ['env:dev', 'jshint', 'common']);
-	grunt.registerTask('prod', ['env:prod', 'clean', 'common']);
+	grunt.registerTask('dev', ['env:dev', 'set_config:mode:DEVELOPMENT', 'jshint', 'common']);
+	grunt.registerTask('prod', ['env:prod', 'set_config:mode:PRODUCTION', 'clean', 'common']);
 
 	grunt.registerTask('default', ['dev']);
 };

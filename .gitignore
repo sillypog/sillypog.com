@@ -3,3 +3,5 @@ build
 bower_components
 node_modules
 sillypog.com_thoughts.txt
+
+package-lock.json
