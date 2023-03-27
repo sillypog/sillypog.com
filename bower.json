@@ -7,6 +7,6 @@
     "jquery-tmpl": "*",
     "jquery-tmpl-loader": "~0.0.2",
     "greensock": "~1.14.2",
-    "Lettering.js": "git@github.com:sillypog/Lettering.js.git#v0.7"
+    "Lettering.js": "https://github.com/sillypog/Lettering.js.git#v0.7"
   }
 }
