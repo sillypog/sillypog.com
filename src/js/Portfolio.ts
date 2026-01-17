@@ -1,9 +1,10 @@
 'use strict';
 
-import { EVENTS, dispatchEvent, addEventListener } from './events.ts';
+import { EVENTS, dispatchEvent, addEventListener, EventName } from './events.ts';
 import { Vector, Rectangle, Circle } from './physics/index.ts';
 import * as ContentModel from './ContentModel.ts';
 import { Article } from './ContentModel.ts';
+import { View } from './View.ts';
 import {
 	$,
 	$$,
@@ -68,7 +69,7 @@ let physicsTimer: number | null = null;
 //----------
 // Constructor
 //----------
-export class Portfolio {
+export class Portfolio implements View {
 	constructor(stageElement: HTMLElement, _contentModel: typeof ContentModel) {
 		instance = this;
 		stage = stageElement;
@@ -194,6 +195,10 @@ export class Portfolio {
 			showOnContents = false;
 			instance?.show();
 		}
+	}
+
+	addEventListener(eventName: EventName, handler: EventListener): void {
+		window.addEventListener(eventName, handler);
 	}
 }
 

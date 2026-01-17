@@ -6,15 +6,7 @@
 */
 
 import { EVENTS, addEventListener, EventName } from './events.ts';
-
-// Interface for View objects that can be managed
-export interface View {
-	intro(detail?: unknown): void;
-	outro(): void;
-	show?(): void;
-	changeSubpage?(subpage: string): void;
-	addEventListener(eventName: EventName, handler: EventListener): void;
-}
+import { View } from './View.ts';
 
 // Interface for the pages object structure
 export interface Pages {

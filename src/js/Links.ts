@@ -1,6 +1,7 @@
-import { EVENTS, dispatchEvent } from './events.ts';
+import { EVENTS, dispatchEvent, EventName } from './events.ts';
 import { $$, on, attr, text, addClass, removeClass } from './utils/dom.ts';
 import { linkTemplate, type LinkTemplateData } from './templates.ts';
+import { View } from './View.ts';
 
 //----------
 // Private properties
@@ -63,7 +64,7 @@ function outroComplete(): void {
 //----------
 // Links class
 //----------
-export class Links {
+export class Links implements View {
 	constructor(stageElement: HTMLElement, contactElement: HTMLElement) {
 		console.log('Links: Constructor');
 
@@ -93,5 +94,9 @@ export class Links {
 
 	outro(): void {
 		outroComplete();
+	}
+
+	addEventListener(eventName: EventName, handler: EventListener): void {
+		window.addEventListener(eventName, handler);
 	}
 }

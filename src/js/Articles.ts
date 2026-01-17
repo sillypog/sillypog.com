@@ -1,9 +1,10 @@
-import { EVENTS, dispatchEvent } from './events.ts';
+import { EVENTS, dispatchEvent, EventName } from './events.ts';
 import { Circulator } from './Circulator.ts';
 import { ajax, $$, $, offset, height, removeClass, addClass } from './utils/dom.ts';
 import { loadAllSVGs } from './utils/loadSVG.ts';
+import { View } from './View.ts';
 
-export class Articles {
+export class Articles implements View {
 	stage: HTMLElement;
 
 	constructor(stage: HTMLElement) {
@@ -61,5 +62,9 @@ export class Articles {
 		addClass(this.stage, 'hidden');
 		// Let the manager know that this page is now hidden. Include the position of the big circle in the event information.
 		dispatchEvent(EVENTS.OUTRO_COMPLETE);
+	}
+
+	addEventListener(eventName: EventName, handler: EventListener): void {
+		window.addEventListener(eventName, handler);
 	}
 }

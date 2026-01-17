@@ -1,7 +1,8 @@
 import { EVENTS, dispatchEvent, EventName } from './events';
+import { View } from './View.ts';
 
 // NoView - placeholder view for initial state
-export class NoView {
+export class NoView implements View {
     constructor() {}
 
     /**
@@ -9,5 +10,13 @@ export class NoView {
      */
     outro(): void {
         dispatchEvent(EVENTS.OUTRO_COMPLETE);
+    }
+
+    intro(): void {
+        dispatchEvent(EVENTS.OUTRO_COMPLETE);
+    }
+
+    addEventListener(eventName: EventName, handler: EventListener): void {
+        window.addEventListener(eventName, handler);
     }
 }

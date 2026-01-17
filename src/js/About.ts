@@ -1,9 +1,10 @@
 /* globals Quint, TweenLite */
 
-import { EVENTS, dispatchEvent } from './events.ts';
+import { EVENTS, dispatchEvent, EventName } from './events.ts';
 import { Circulator } from './Circulator.js';
 import { $$, offset, addClass, removeClass } from './utils/dom.ts';
 import { loadAllSVGs, removeInlineStyle } from './utils/index.ts';
+import { View } from './View.ts';
 
 interface Offset {
 	top: number;
@@ -22,7 +23,7 @@ let shown: boolean;
 /**
  * About class - manages the about section with circular text wrapping
  */
-export class About {
+export class About implements View {
 	/**
 	 * Constructor
 	 * @param stageElement - DOM element for the about stage
@@ -73,6 +74,10 @@ export class About {
 
 		const headerElements = document.querySelectorAll('#about header > *');
 		TweenLite.to(headerElements, 1, {css:{alpha:0}, ease:Quint.easeIn, onComplete:outroComplete});
+	}
+
+	addEventListener(eventName: EventName, handler: EventListener): void {
+		window.addEventListener(eventName, handler);
 	}
 }
 
